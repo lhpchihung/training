@@ -4,7 +4,7 @@ import {
   UserSubmission,
 } from "../pages/user/personal-information/model";
 
-const GET_USER_DATA_URL = "https://dummyjson.com/c/8965-2d91-4ddb-a6b5";
+const GET_USER_DATA_URL = "https://dummyjson.com/users/8965-2d91-4ddb-a6b5";
 const SUBMIT_USER_DATA_URL = "https://dummyjson.com/c/9017-7199-4849-834e";
 const GET_SUBMISSION_INFOR_URL = "https://dummyjson.com/c/5a22-8836-417c-90c6";
 const UPDATE_SUBMISSION_STATUS_URL =
@@ -89,7 +89,7 @@ export const updateSubmissionStatus = async (
 };
 
 export const loginUser = async (
-  email: string,
+  username: string,
   password: string
 ): Promise<{
   accessToken: string;
@@ -98,7 +98,7 @@ export const loginUser = async (
     const response = await fetch(LOGIN_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, expiresInMins: 30 }),
+      body: JSON.stringify({ username, password, expiresInMins: 30 }),
     });
 
     if (!response.ok) {

@@ -20,7 +20,7 @@ const Login = () => {
             sessionStorage.setItem("accessToken", response.accessToken);
 
             const user = {
-                name: data.email === "hung@gmail.com" ? "Admin" : "Guest",
+                name: data.email === "hung@gmail.com" ? "Admin" : "Guest User",
                 email: data.email,
                 role: data.email === "hung@gmail.com" ? UserRole.Admin : UserRole.User,
             };
@@ -55,7 +55,9 @@ const Login = () => {
                                 message: "Invalid email address",
                             }
                         })} />
-                        {errors.email && (<p className="text-sm text-red-500">{errors.email.message}</p>)}
+                        {errors.email &&
+                            (<p className="text-sm text-red-500">{errors.email.message}</p>)
+                        }
                     </div>
                     <div>
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
@@ -68,16 +70,17 @@ const Login = () => {
                                 message: "Password must contain at least one letter, one digit, and one special character (@, #, &, !)."
                             }
                         })} />
-                        {errors.password && (<p className="text-sm text-red-500">{errors.password.message}</p>)}
+                        {errors.password &&
+                            (<p className="text-sm text-red-500">{errors.password.message}</p>)
+                        }
                     </div>
                     <div className="flex items-start">
                         <div className="flex items-center h-5">
-                            <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" {...register("remember", { required: "You must accept the terms." })} />
+                            <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" />
                         </div>
                         <div className="ml-3 text-sm">
                             <label htmlFor="remember" className="font-medium text-gray-900 dark:text-white">Remember me</label>
                         </div>
-                        {errors.remember && (<p className="text-sm text-red-500">{errors.remember.message}</p>)}
                         <Link to='/auth/reset-password' className="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500">Lost Password?</Link>
                     </div>
                     <PrimaryButton title="Login to your account" loading={loading} onClick={handleSubmit(onSubmit)} />

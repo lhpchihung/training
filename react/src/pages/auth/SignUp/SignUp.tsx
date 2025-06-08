@@ -61,8 +61,8 @@ const SignUp = () => {
                         <input
                             type="email"
                             id="email"
-                            defaultValue="carter@gmail.com"
-                            placeholder="name@company.com"
+                            defaultValue="emily.johnson@x.dummyjson.com"
+                            placeholder="emily.johnson@x.dummyjson.com"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             {...register("email", {
                                 required: "Email is required", pattern: {
@@ -71,7 +71,9 @@ const SignUp = () => {
                                 }
                             })}
                         />
-                        {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
+                        {errors.email &&
+                            (<p className="text-sm text-red-500">{errors.email.message}</p>)
+                        }
                     </div>
                     <div>
                         <label
@@ -84,7 +86,7 @@ const SignUp = () => {
                             type="password"
                             id="password"
                             placeholder="••••••••"
-                            defaultValue="Test124!aaaaaa"
+                            defaultValue="123456789@Hung"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             {...register("password", {
                                 required: "Password is required",
@@ -98,7 +100,9 @@ const SignUp = () => {
                                 },
                             })}
                         />
-                        {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
+                        {errors.password &&
+                            (<p className="text-sm text-red-500">{errors.password.message}</p>)
+                        }
                     </div>
                     <div>
                         <label
@@ -110,7 +114,7 @@ const SignUp = () => {
                         <input
                             type="password"
                             id="confirm-password"
-                            defaultValue="Test1234!qqqqq"
+                            defaultValue="987654321@Hung"
                             placeholder="••••••••"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             {...register("confirmPassword", {
@@ -118,7 +122,11 @@ const SignUp = () => {
                                 validate: (value: string) => value === watch("password") || "Passwords do not match",
                             })}
                         />
-                        {errors.confirmPassword && <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>}
+                        {errors.confirmPassword &&
+                            (<p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+
+                            )
+                        }
                     </div>
                     <div className="flex items-start">
                         <div className="flex items-center h-5">
@@ -145,7 +153,9 @@ const SignUp = () => {
                             </label>
                         </div>
                     </div>
-                    {errors.term && <p className="text-sm text-red-500">{errors.term.message}</p>}
+                    {errors.term &&
+                        (<p className="text-sm text-red-500">{errors.term.message}</p>)
+                    }
                     <PrimaryButton title="Create account" onClick={handleSubmit(onSubmit)} term={termsAccepted} loading={loading} />
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                         Already have an account?{" "}
