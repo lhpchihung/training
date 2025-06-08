@@ -1,10 +1,45 @@
-import {Link} from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
+import { LoginData, UserRole } from "../../user/personal-information/model";
+import { AuthenticatedContext } from "../../../shared/Authenticated";
+import { loginUser } from "../../../services/dummy-api";
+import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 
 const Login = () => {
-    return(
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
+    const [loading, setLoading] = useState(false);
+    const isAuthenticated = useContext(AuthenticatedContext);
+    const navigate = useNavigate();
+
+    const onSubmit: SubmitHandler<LoginData> = async (data: LoginData) => {
+        setLoading(true);
+        try {
+            const response = await loginUser("emilys", "emilyspass");
+            sessionStorage.setItem("accessToken", response.accessToken);
+
+            const user = {
+                name: data.email === "hung@gmail.com" ? "Admin" : "Guest",
+                email: data.email,
+                role: data.email === "hung@gmail.com" ? UserRole.Admin : UserRole.User,
+            };
+
+            isAuthenticated.setUser(user);
+            sessionStorage.setItem("user", JSON.stringify(user));
+            showSuccessToast("Login successfully!");
+            navigate("/");
+        } catch (error) {
+            showErrorToast("Login failed!");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
         <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0 dark:bg-gray-900">
             <a href="#" className="flex items-center justify-center mb-8 text-2xl font-semibold lg:mb-10 dark:text-white">
-            <img src="/logo.png" className="mr-4 h-11" alt="Simple KYC Logo"/>
+                <img src="/logo.png" className="mr-4 h-11" alt="Simple KYC Logo" />
                 <span>Simple KYC Authentication</span>
             </a>
             <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
@@ -14,22 +49,38 @@ const Login = () => {
                 <form className="mt-8 space-y-6" action="#">
                     <div>
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                        <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="name@company.com" required/>
+                        <input type="email" id="email" placeholder="name@company.com" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" {...register("email", {
+                            required: "Email is required", pattern: {
+                                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                                message: "Invalid email address",
+                            }
+                        })} />
+                        {errors.email && (<p className="text-sm text-red-500">{errors.email.message}</p>)}
                     </div>
                     <div>
                         <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required/>
+                        <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" {...register("password", {
+                            required: "Password is required",
+                            minLength: { value: 12, message: "Password must be at least 12 characters" },
+                            maxLength: { value: 16, message: "Password must be shorter than 17 characters" },
+                            pattern: {
+                                value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{6,}$/,
+                                message: "Password must contain at least one letter, one digit, and one special character (@, #, &, !)."
+                            }
+                        })} />
+                        {errors.password && (<p className="text-sm text-red-500">{errors.password.message}</p>)}
                     </div>
                     <div className="flex items-start">
                         <div className="flex items-center h-5">
-                            <input id="remember" aria-describedby="remember" name="remember" type="checkbox" className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" required/>
+                            <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600" {...register("remember", { required: "You must accept the terms." })} />
                         </div>
                         <div className="ml-3 text-sm">
                             <label htmlFor="remember" className="font-medium text-gray-900 dark:text-white">Remember me</label>
                         </div>
-                        <Link to='/pages/auth/reset-password' className="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500">Lost Password?</Link>
+                        {errors.remember && (<p className="text-sm text-red-500">{errors.remember.message}</p>)}
+                        <Link to='/auth/reset-password' className="ml-auto text-sm text-primary-700 hover:underline dark:text-primary-500">Lost Password?</Link>
                     </div>
-                    <button type="submit" className="w-full px-5 py-3 text-base font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login to your account</button>
+                    <PrimaryButton title="Login to your account" loading={loading} onClick={handleSubmit(onSubmit)} />
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
                         Forgot password? <Link to='/auth/sign-up' className="text-primary-700 hover:underline dark:text-primary-500">Sign-up</Link>
                     </div>

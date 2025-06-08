@@ -1,19 +1,56 @@
-import {createContext, ReactElement} from "react";
+import { createContext, ReactElement, useEffect, useState } from "react";
 
-interface User {
+export enum UserRole {
+    Admin = "admin",
+    User = "user",
+    Guest = "guest",
+}
+
+export interface User {
     name: string;
     email: string;
+    role: UserRole;
 }
 
-const fakeUser = {
-    name: "Neo Amstrong",
-    email: "neo.amstrong@notarealmail.com"
-}
+const AuthenticatedContext = createContext<{
+    user: User | null;
+    loading: boolean;
+    setUser: (user: User | null) => void;
+}>({
+    user: null,
+    loading: true,
+    setUser: () => { },
+});
 
-const AuthenticatedContext = createContext<User|null>(null);
+const getStoredUser = (): User | null => {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+        try {
+            return JSON.parse(storedUser);
+        } catch (error) {
+            sessionStorage.removeItem("user");
+        }
+    }
+    return null;
+};
 
-const AuthenticatedProvider = ({children}: {children: ReactElement}) => {
-    return (<AuthenticatedContext.Provider value={fakeUser}>{children}</AuthenticatedContext.Provider>)
-}
+const AuthenticatedProvider = ({ children }: { children: ReactElement }) => {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
-export { AuthenticatedProvider, AuthenticatedContext};
+    useEffect(() => {
+        const storedUser = getStoredUser();
+        if (storedUser) {
+            setUser(storedUser);
+        }
+        setLoading(false);
+    }, []);
+
+    return (
+        <AuthenticatedContext.Provider value={{ user, loading, setUser }}>
+            {children}
+        </AuthenticatedContext.Provider>
+    );
+};
+
+export { AuthenticatedProvider, AuthenticatedContext };

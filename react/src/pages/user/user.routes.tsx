@@ -1,20 +1,40 @@
-import {RouteObject} from "react-router";
-import PersonalInformation from "./personal-information/personal-information";
-import UserKYC from "./kyc/kyc";
-import User from "./user";
+import { Navigate, RouteObject } from "react-router";
+import { lazy, Suspense } from "react";
+import LoadingData from "../../components/ui/Loading/Loading";
+import UserSubmission from "./submission/Submission";
+
+const PersonalInformation = lazy(() => import("./personal-information/PersonalInformation"));
+const UserKYC = lazy(() => import("./kyc/UserKYC"));
+const User = lazy(() => import("./User"));
+const UserProfile = lazy(() => import("./profile/Profile"));
 
 const userRoutes: RouteObject[] = [
     {
         path: 'user',
-        element: <User/>,
+        element: (
+            <Suspense fallback={<LoadingData />}>
+                <User />
+            </Suspense>),
         children: [
             {
+                path: "",
+                element: <Navigate to="profile" replace />,
+            },
+            {
                 path: ':id/pi',
-                element: <PersonalInformation/>
+                element: <PersonalInformation disable={false} />
             },
             {
                 path: ':id/kyc',
-                element: <UserKYC></UserKYC>
+                element: <UserKYC disable={false} />
+            },
+            {
+                path: 'profile',
+                element: <UserProfile />
+            },
+            {
+                path: 'submissions',
+                element: <UserSubmission />
             }
         ]
     }
