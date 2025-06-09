@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { showSuccessToast } from "../../../utils/toastUtils";
-import { AuthenticatedContext } from "../../../shared/Authenticated";
+import { showSuccessToast } from "../../utils/toastUtils";
+import { AuthenticatedContext } from "../../shared/Authenticated";
 
 const Logout = () => {
     const { setUser } = useContext(AuthenticatedContext);

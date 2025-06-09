@@ -1,4 +1,4 @@
-import authRoutes from "./pages/auth/auth.routes";
+import authRoutes from "./auth/auth.routes";
 import pagesRoutes from "./pages/pages.routes";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 

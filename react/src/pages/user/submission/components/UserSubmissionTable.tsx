@@ -7,21 +7,56 @@ import { fetchUserSubmissions } from "../../../../services/dummy-api";
 type Props = {};
 
 const UserSubmissionTable = (props: Props) => {
-    const [data, setData] = useState<UserSubmission[]>([]);
+    const mockSubmissions = [
+        {
+            id: "1",
+            name: "John Doe",
+            status: "Waiting",
+            requestDate: "2025-06-01",
+            confirmDate: null,
+            action: "Request",
+        },
+        {
+            id: "2",
+            name: "Jane Smith",
+            status: "Approve",
+            requestDate: "2025-05-30",
+            confirmDate: "2025-06-02",
+            action: "Completed",
+        },
+        {
+            id: "3",
+            name: "Alice Johnson",
+            status: "Reject",
+            requestDate: "2025-05-25",
+            confirmDate: "2025-05-28",
+            action: "Completed",
+        },
+        {
+            id: "4",
+            name: "Bob Brown",
+            status: "Waiting",
+            requestDate: "2025-06-05",
+            confirmDate: null,
+            action: "Request",
+        },
+    ];
+    
+    const [data, setData] = useState<UserSubmission[]>(mockSubmissions as any);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const result = await fetchUserSubmissions();
-    //             setData(result);
-    //         } catch (error) {
-    //             showErrorToast("Error when fetching submissions!");
-    //             console.error("Error fetching submissions:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await fetchUserSubmissions();
+                setData(result);
+            } catch (error) {
+                showErrorToast("Error when fetching submissions!");
+                console.error("Error fetching submissions:", error);
+            }
+        };
 
-    //     fetchData();
-    // }, []);
+        fetchData();
+    }, []);
 
     return (
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">

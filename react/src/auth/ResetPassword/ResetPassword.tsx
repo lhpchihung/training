@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import { resetPassword } from "../../../services/dummy-api";
-import { ResetPasswordData } from "../../user/personal-information/model";
-import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { resetPassword } from "../../services/dummy-api";
+import { ResetPasswordData } from "../../pages/user/personal-information/model";
+import PrimaryButton from "../../components/ui/Button/PrimaryButton";
 import { useNavigate } from "react-router";
 
 const ResetPassword = () => {

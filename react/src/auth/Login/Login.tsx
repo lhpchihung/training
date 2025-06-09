@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
-import { LoginData, UserRole } from "../../user/personal-information/model";
-import { AuthenticatedContext } from "../../../shared/Authenticated";
-import { loginUser } from "../../../services/dummy-api";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
+import PrimaryButton from "../../components/ui/Button/PrimaryButton";
+import { LoginData, UserRole } from "../../pages/user/personal-information/model";
+import { AuthenticatedContext } from "../../shared/Authenticated";
+import { loginUser } from "../../services/dummy-api";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();

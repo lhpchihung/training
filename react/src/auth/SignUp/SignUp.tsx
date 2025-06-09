@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import { signUpUser } from "../../../services/dummy-api";
-import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { signUpUser } from "../../services/dummy-api";
+import PrimaryButton from "../../components/ui/Button/PrimaryButton";
 
 interface SignUpData {
     email: string;
