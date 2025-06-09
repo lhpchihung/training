@@ -35,14 +35,10 @@ const getStoredUser = (): User | null => {
 };
 
 const AuthenticatedProvider = ({ children }: { children: ReactElement }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User | null>(() => getStoredUser());
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        const storedUser = getStoredUser();
-        if (storedUser) {
-            setUser(storedUser);
-        }
         setLoading(false);
     }, []);
 

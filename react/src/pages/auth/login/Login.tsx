@@ -9,7 +9,7 @@ import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const isAuthenticated = useContext(AuthenticatedContext);
     const navigate = useNavigate();
 

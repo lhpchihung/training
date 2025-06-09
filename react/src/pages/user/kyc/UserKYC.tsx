@@ -33,21 +33,21 @@ const UserKYC = ({ disable = true }: Props) => {
 
     const methods = useForm<UserData>();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data: UserData = await fetchUserData();
-                console.log(data);
-                methods.reset(data);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const data: UserData = await fetchUserData();
+    //             console.log(data);
+    //             methods.reset(data);
+    //         } catch (error) {
+    //             console.error("Error fetching user data:", error);
+    //         }
+    //     };
 
-        fetchData();
-    }, [methods]);
+    //     fetchData();
+    // }, [methods]);
 
     const onSubmit = methods.handleSubmit(async (data) => {
         setLoading(true);

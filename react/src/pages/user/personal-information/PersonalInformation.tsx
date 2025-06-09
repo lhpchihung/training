@@ -25,24 +25,24 @@ type Props = {
 
 const PersonalInformation = ({ disable = false }: Props) => {
     const methods = useForm<UserData>();
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchData = async (): Promise<void> => {
-            try {
-                const data: UserData = await fetchUserData();
-                methods.reset(data);
-            } catch (error) {
-                showErrorToast(`Fetching data error: ${String(error)}`);
-                console.error("Error fetching user data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async (): Promise<void> => {
+    //         try {
+    //             const data: UserData = await fetchUserData();
+    //             methods.reset(data);
+    //         } catch (error) {
+    //             showErrorToast(`Fetching data error: ${String(error)}`);
+    //             console.error("Error fetching user data:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        fetchData();
-    }, [methods]);
+    //     fetchData();
+    // }, [methods]);
 
     const onSubmit = methods.handleSubmit(async (data: UserData) => {
         setLoading(true);

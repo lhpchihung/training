@@ -12,7 +12,7 @@ type Props = {
 
 const TableLine = ({ submissionData, setData }: Props) => {
     const { name, status, date, action } = submissionData;
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [modalAction, setModalAction] = useState<"approve" | "reject" | null>(null);
 
     const handleAction = async (action: "approve" | "reject") => {

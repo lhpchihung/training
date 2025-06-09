@@ -9,19 +9,19 @@ type Props = {};
 const UserSubmissionTable = (props: Props) => {
     const [data, setData] = useState<UserSubmission[]>([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await fetchUserSubmissions();
-                setData(result);
-            } catch (error) {
-                showErrorToast("Error when fetching submissions!");
-                console.error("Error fetching submissions:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const result = await fetchUserSubmissions();
+    //             setData(result);
+    //         } catch (error) {
+    //             showErrorToast("Error when fetching submissions!");
+    //             console.error("Error fetching submissions:", error);
+    //         }
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
 
     return (
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">

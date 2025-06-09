@@ -4,6 +4,35 @@ import { UserData } from '../personal-information/model';
 import SingleField from './components/SingleField';
 import { fetchUserData } from '../../../services/dummy-api';
 
+export const mockUserData = {
+    basicInfor: {
+      firstName: "John",
+      lastName: "Doe",
+      dateOfBirth: "1990-01-01",
+    },
+    addresses: [
+      {
+        country: "United States",
+        city: "New York",
+        street: "123 Main St",
+        postalCode: "10001",
+      },
+    ],
+    emails: [
+      {
+        emailAddress: "john.doe@example.com",
+      },
+    ],
+    phones: [
+      {
+        phoneNumber: "+1-202-555-0173",
+      },
+    ],
+    organization: "Acme Corp",
+    role: "Admin",
+    department: "IT",
+  };
+
 type Props = {}
 
 const breadcrumbItems = [
@@ -18,8 +47,9 @@ const Profile = (props: Props) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetchUserData();
-                setUserData(response);
+                // const response = await fetchUserData();
+                // setUserData(response);
+                setUserData(mockUserData as any);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             }

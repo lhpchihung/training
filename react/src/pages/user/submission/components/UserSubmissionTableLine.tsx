@@ -10,7 +10,7 @@ type Props = {
 
 const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
     const { id, name, status, requestDate, confirmDate, action } = submissionData;
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleActionUpdate = async (newAction: UserSubmissionAction) => {
         setLoading(true);
