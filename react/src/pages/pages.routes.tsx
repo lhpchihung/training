@@ -1,6 +1,6 @@
 import HomeComponent from "./home/Home";
 import userRoutes from "./user/user.routes";
-import Pages from "./Pages";
+import Pages from "./pages";
 import adminRoutes from "./admin/admin.routes";
 import { Navigate } from "react-router-dom";
 import errorRoutes from "./error/error.routes";

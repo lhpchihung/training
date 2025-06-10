@@ -5,7 +5,7 @@ import UserSubmission from "./submission/Submission";
 
 const PersonalInformation = lazy(() => import("./personal-information/PersonalInformation"));
 const UserKYC = lazy(() => import("./kyc/UserKYC"));
-const User = lazy(() => import("./User"));
+const User = lazy(() => import("./user"));
 const UserProfile = lazy(() => import("./profile/Profile"));
 
 const userRoutes: RouteObject[] = [
