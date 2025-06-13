@@ -71,8 +71,8 @@ const ResetPassword = () => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             {...register("password", {
                                 required: "Password is required",
-                                minLength: { value: 12, message: "Password must be at least 12 characters" },
-                                maxLength: { value: 16, message: "Password must be shorter than 17 characters" },
+                                minLength: { value: 1, message: "Password must be at least 1 characters" },
+                                maxLength: { value: 6, message: "Password must be shorter than 7 characters" },
                                 pattern: {
                                     value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{6,}$/,
                                     message: "Password must contain at least one letter, one digit, and one special character (@, #, &, !)."
