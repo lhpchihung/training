@@ -2,9 +2,8 @@ export interface BreadcrumbItem {
     label: string;
     href?: string;
     current?: boolean;
-  }
-  
-  export interface BreadcrumbProps {
+}
+
+export interface BreadcrumbProps {
     items: BreadcrumbItem[];
-  }
-  
+}

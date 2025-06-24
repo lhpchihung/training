@@ -1,14 +1,14 @@
 {
-  "admin": {
-    "email": "hung@example.com",
-    "password": "Admin123@",
-    "role": "admin",
-    "name": "Admin"
-  },
-  "user": {
-    "email": "guest@example.com",
-    "password": "Guest123@",
-    "role": "user",
-    "name": "Guest User"
-  }
+    "admin": {
+        "email": "hung@example.com",
+        "password": "Hung@123",
+        "role": "admin",
+        "name": "Admin"
+    },
+    "user": {
+        "email": "guest@example.com",
+        "password": "Hung@123",
+        "role": "user",
+        "name": "Guest User"
+    }
 }

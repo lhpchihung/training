@@ -1,10 +1,7 @@
-import { Outlet } from "react-router";
+import { Outlet } from 'react-router';
 
 const Auth = () => {
-
-    return (
-        <Outlet></Outlet>
-    )
-}
+    return <Outlet></Outlet>;
+};
 
 export default Auth;

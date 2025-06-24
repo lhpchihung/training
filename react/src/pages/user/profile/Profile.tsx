@@ -6,32 +6,32 @@ import { fetchUserData } from '../../../services/dummy-api';
 
 export const mockUserData = {
     basicInfor: {
-      firstName: "John",
-      lastName: "Doe",
-      dateOfBirth: "1990-01-01",
+        firstName: "John",
+        lastName: "Doe",
+        dateOfBirth: "1990-01-01",
     },
     addresses: [
-      {
-        country: "United States",
-        city: "New York",
-        street: "123 Main St",
-        postalCode: "10001",
-      },
+        {
+            country: "United States",
+            city: "New York",
+            street: "123 Main St",
+            postalCode: "10001",
+        },
     ],
     emails: [
-      {
-        emailAddress: "john.doe@example.com",
-      },
+        {
+            emailAddress: "john.doe@example.com",
+        },
     ],
     phones: [
-      {
-        phoneNumber: "+1-202-555-0173",
-      },
+        {
+            phoneNumber: "+1-202-555-0173",
+        },
     ],
     organization: "Acme Corp",
     role: "Admin",
     department: "IT",
-  };
+};
 
 type Props = {}
 

@@ -1,19 +1,4 @@
-/**
- * Login =======================================================
- */
-
-export type LoginData = {
-  email: string;
-  password: string;
-  remember: string;
-};
-
-export type ResetPasswordData = {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  accept: boolean;
-};
+import { UserRole } from "../../../../types/enums";
 
 /**
  * User information =======================================================
@@ -88,11 +73,6 @@ export type UserOccupation = {
 export enum PreferredType {
   True = "true",
   False = "false",
-}
-
-export enum UserRole {
-  Admin = "admin",
-  User = "user",
 }
 
 export enum AddressType {

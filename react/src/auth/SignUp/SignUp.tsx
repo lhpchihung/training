@@ -1,37 +1,31 @@
-import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
-import { signUpUser } from "../../services/dummy-api";
-import PrimaryButton from "../../components/ui/Button/PrimaryButton";
-
-interface SignUpData {
-    email: string;
-    password: string;
-    confirmPassword: string;
-    term: boolean;
-}
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { showErrorToast, showSuccessToast } from '../../utils/toastUtils';
+import { signUpUser } from '../../services/dummy-api';
+import PrimaryButton from '../../components/ui/Button/PrimaryButton';
+import { SignUpData } from './SignUp.types';
 
 const SignUp = () => {
     const {
         watch,
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }
     } = useForm<SignUpData>();
 
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-    const termsAccepted: boolean = watch("term", false);
+    const termsAccepted: boolean = watch('term', false);
 
     const onSubmit: SubmitHandler<SignUpData> = async (data: SignUpData): Promise<void> => {
         setLoading(true);
         try {
             const user = await signUpUser(data.email, data.password);
-            showSuccessToast("Sign up successfully!");
-            navigate("/auth/login");
+            showSuccessToast('Sign up successfully!');
+            navigate('/auth/login');
         } catch (error) {
-            showErrorToast("Sign up failed!");
+            showErrorToast('Sign up failed!');
         } finally {
             setLoading(false);
         }
@@ -61,19 +55,20 @@ const SignUp = () => {
                         <input
                             type="email"
                             id="email"
-                            defaultValue="emily.johnson@x.dummyjson.com"
-                            placeholder="emily.johnson@x.dummyjson.com"
+                            defaultValue="hung@example.com"
+                            placeholder="hung@example.com"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            {...register("email", {
-                                required: "Email is required", pattern: {
+                            {...register('email', {
+                                required: 'Email is required',
+                                pattern: {
                                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                                    message: "Invalid email address",
+                                    message: 'Invalid email address'
                                 }
                             })}
                         />
-                        {errors.email &&
-                            (<p className="text-sm text-red-500">{errors.email.message}</p>)
-                        }
+                        {errors.email && (
+                            <p className="text-sm text-red-500">{errors.email.message}</p>
+                        )}
                     </div>
                     <div>
                         <label
@@ -86,23 +81,24 @@ const SignUp = () => {
                             type="password"
                             id="password"
                             placeholder="••••••••"
-                            defaultValue="123456789@Hung"
+                            defaultValue="Hung@123"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            {...register("password", {
-                                required: "Password is required",
+                            {...register('password', {
+                                required: 'Password is required',
                                 minLength: {
-                                    value: 12,
-                                    message: "Password must be at least 12 characters",
+                                    value: 6,
+                                    message: 'Password must be at least 6 characters'
                                 },
                                 pattern: {
-                                    value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{12,}$/,
-                                    message: "Password must contain at least one letter, one digit, and one special character (@, #, &, !).",
-                                },
+                                    value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{6,}$/,
+                                    message:
+                                        'Password must contain at least one letter, one digit, and one special character (@, #, &, !).'
+                                }
                             })}
                         />
-                        {errors.password &&
-                            (<p className="text-sm text-red-500">{errors.password.message}</p>)
-                        }
+                        {errors.password && (
+                            <p className="text-sm text-red-500">{errors.password.message}</p>
+                        )}
                     </div>
                     <div>
                         <label
@@ -114,19 +110,18 @@ const SignUp = () => {
                         <input
                             type="password"
                             id="confirm-password"
-                            defaultValue="987654321@Hung"
+                            defaultValue="Hung@123"
                             placeholder="••••••••"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            {...register("confirmPassword", {
-                                required: "Please confirm your password",
-                                validate: (value: string) => value === watch("password") || "Passwords do not match",
+                            {...register('confirmPassword', {
+                                required: 'Please confirm your password',
+                                validate: (value: string) =>
+                                    value === watch('password') || 'Passwords do not match'
                             })}
                         />
-                        {errors.confirmPassword &&
-                            (<p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
-
-                            )
-                        }
+                        {errors.confirmPassword && (
+                            <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+                        )}
                     </div>
                     <div className="flex items-start">
                         <div className="flex items-center h-5">
@@ -135,7 +130,9 @@ const SignUp = () => {
                                 aria-describedby="remember"
                                 type="checkbox"
                                 className="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                                {...register("term", { required: "You must accept the terms and conditions" })}
+                                {...register('term', {
+                                    required: 'You must accept the terms and conditions'
+                                })}
                             />
                         </div>
                         <div className="ml-3 text-sm">
@@ -143,7 +140,7 @@ const SignUp = () => {
                                 htmlFor="remember"
                                 className="font-medium text-gray-900 dark:text-white"
                             >
-                                I accept the{" "}
+                                I accept the{' '}
                                 <a
                                     href="#"
                                     className="text-primary-700 hover:underline dark:text-primary-500"
@@ -153,12 +150,15 @@ const SignUp = () => {
                             </label>
                         </div>
                     </div>
-                    {errors.term &&
-                        (<p className="text-sm text-red-500">{errors.term.message}</p>)
-                    }
-                    <PrimaryButton title="Create account" onClick={handleSubmit(onSubmit)} term={termsAccepted} loading={loading} />
+                    {errors.term && <p className="text-sm text-red-500">{errors.term.message}</p>}
+                    <PrimaryButton
+                        title="Create account"
+                        onClick={handleSubmit(onSubmit)}
+                        term={termsAccepted}
+                        loading={loading}
+                    />
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        Already have an account?{" "}
+                        Already have an account?{' '}
                         <a
                             href="/auth/login"
                             className="text-primary-700 hover:underline dark:text-primary-500"

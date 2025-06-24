@@ -8,7 +8,7 @@ export const showSuccessToast = (message: string) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
     });
 };
 
@@ -20,7 +20,7 @@ export const showErrorToast = (message: string) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
     });
 };
 
@@ -32,6 +32,6 @@ export const showInfoToast = (message: string) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
     });
 };
