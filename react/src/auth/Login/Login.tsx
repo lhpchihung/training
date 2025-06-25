@@ -6,13 +6,14 @@ import PrimaryButton from '../../components/ui/Button/PrimaryButton';
 import { showErrorToast, showSuccessToast } from '../../utils/toastUtils';
 
 import { LoginData } from './Login.types';
-import { UserRole } from '../../types/enums';
+import { UserRole } from '../../types/user';
 
 import { AuthenticatedContext } from '../../shared/Authenticated';
 
 import { loginUser } from '../../services/dummy-api';
 import userData from '../../services/userData.json';
 import config from '../../config/config.json';
+import { User } from '../../pages/user/personal-information/model';
 
 const Login = () => {
     const {
@@ -44,7 +45,8 @@ const Login = () => {
             sessionStorage.setItem('accessToken', response.accessToken);
 
             const isAdmin = data.email === userData.admin.email;
-            const user = {
+            const user: User = {
+                id: userData.user.id,
                 name: isAdmin ? userData.admin.name : userData.user.name,
                 email: data.email,
                 role: isAdmin ? UserRole.Admin : UserRole.User

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BreadcrumbItem, BreadcrumbProps } from "../../../types/breadcrumb";
+import { BreadcrumbProps } from '../../../models/breadcrumb';
 
 const Breadcrumb = React.memo(({ items }: BreadcrumbProps) => {
     return (

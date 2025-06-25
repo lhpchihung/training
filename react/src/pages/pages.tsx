@@ -1,13 +1,13 @@
-import Header from "../components/layout/Header/Header";
-import Sidebar from "../components/layout/Sidebar/Sidebar";
-import { Navigate, Outlet, useLocation } from "react-router";
-import Footer from "../components/layout/Footer/Footer";
-import React, { ReactNode, useContext } from "react";
-import { UserRole, AuthenticatedContext } from "../shared/Authenticated";
+import Header from '../components/layout/Header/Header';
+import Sidebar from '../components/layout/Sidebar/Sidebar';
+import { Navigate, Outlet, useLocation } from 'react-router';
+import Footer from '../components/layout/Footer/Footer';
+import React, { ReactNode, useContext } from 'react';
+import { UserRole, AuthenticatedContext } from '../shared/Authenticated';
 
 const redirectToRolePage = (userRole: UserRole) => {
-    if (userRole === UserRole.Admin) return "/pages/admin";
-    if (userRole === UserRole.User) return "/pages/user";
+    if (userRole === UserRole.Admin) return '/pages/admin';
+    if (userRole === UserRole.User) return '/pages/user';
     return null;
 };
 
@@ -33,7 +33,6 @@ const Layout = ({ children }: LayoutProps) => (
     </>
 );
 
-
 const Pages = () => {
     const isAuthenticated = useContext(AuthenticatedContext);
     const location = useLocation();
@@ -42,7 +41,7 @@ const Pages = () => {
         return <Navigate to="/auth/login" replace />;
     }
 
-    if (location.pathname === "/pages") {
+    if (location.pathname === '/pages') {
         const redirectPath = redirectToRolePage(isAuthenticated.user.role);
         if (redirectPath) {
             return <Navigate to={redirectPath} replace />;
@@ -54,6 +53,6 @@ const Pages = () => {
             <Outlet />
         </Layout>
     );
-}
+};
 
-export default Pages
+export default Pages;

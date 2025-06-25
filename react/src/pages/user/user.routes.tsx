@@ -1,12 +1,12 @@
-import { Navigate, RouteObject } from "react-router";
-import { lazy, Suspense } from "react";
-import LoadingData from "../../components/ui/Loading/Loading";
-import UserSubmission from "./submission/Submission";
+import { Navigate, RouteObject } from 'react-router';
+import { lazy, Suspense } from 'react';
+import LoadingData from '../../components/ui/Loading/Loading';
+import UserSubmission from './submission/Submission';
 
-const PersonalInformation = lazy(() => import("./personal-information/PersonalInformation"));
-const UserKYC = lazy(() => import("./kyc/UserKYC"));
-const User = lazy(() => import("./user"));
-const UserProfile = lazy(() => import("./profile/Profile"));
+const PersonalInformation = lazy(() => import('./personal-information/PersonalInformation'));
+const UserKYC = lazy(() => import('./kyc/UserKYC'));
+const User = lazy(() => import('./user'));
+const UserProfile = lazy(() => import('./profile/Profile'));
 
 const userRoutes: RouteObject[] = [
     {
@@ -14,11 +14,12 @@ const userRoutes: RouteObject[] = [
         element: (
             <Suspense fallback={<LoadingData />}>
                 <User />
-            </Suspense>),
+            </Suspense>
+        ),
         children: [
             {
-                path: "",
-                element: <Navigate to="profile" replace />,
+                path: '',
+                element: <Navigate to="profile" replace />
             },
             {
                 path: ':id/pi',
@@ -38,6 +39,6 @@ const userRoutes: RouteObject[] = [
             }
         ]
     }
-]
+];
 
 export default userRoutes;

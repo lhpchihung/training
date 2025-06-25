@@ -27,13 +27,13 @@ const Sidebar = () => {
         },
         {
             name: 'PI',
-            link: "/pages/user/1/pi",
+            link: "/pages/user/pi",
             icon: '/icons/person-button.svg',
             role: 'user',
         },
         {
             name: 'KYC',
-            link: "/pages/user/1/kyc",
+            link: "/pages/user/kyc",
             icon: '/icons/health-insurance.svg',
             role: 'user',
         },

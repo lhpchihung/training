@@ -1,31 +1,41 @@
-import { useFormContext, useFieldArray } from "react-hook-form";
-import ErrorMessage from "../../../../components/ui/Error/Error";
-import { PhoneType, PreferredType, UserData } from "../model";
+import { useFormContext, useFieldArray } from 'react-hook-form';
+import ErrorMessage from '../../../../components/ui/Error/Error';
+import { UserData } from '../model';
+import { PhoneType, PreferredType } from '../../../../types/user';
 
 type Props = {
-    disable?: boolean
-}
+    disable?: boolean;
+};
 
 const PhonePanel = ({ disable = false }: Props) => {
-    const name = "phones";
+    const name = 'phones';
 
-    const { register, formState: { errors }, control } = useFormContext<UserData>();
+    const {
+        register,
+        formState: { errors },
+        control
+    } = useFormContext<UserData>();
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: name,
+        name: name
     });
 
     return (
-        <div className={`panel mb-6 dark:text-gray-300 dark:bg-gray-900 ${disable ? 'disabled' : ''}`}>
+        <div
+            className={`panel mb-6 dark:text-gray-300 dark:bg-gray-900 ${
+                disable ? 'disabled' : ''
+            }`}
+        >
             <h3 className="text-lg font-medium mb-4 text-blue-800 dark:text-gray-300">Phones</h3>
 
             {fields.map((item, index) => (
-                <fieldset key={item.id} className="grid grid-cols-3 gap-4 border rounded-md p-4 mb-4">
+                <fieldset
+                    key={item.id}
+                    className="grid grid-cols-3 gap-4 border rounded-md p-4 mb-4"
+                >
                     <legend className="text-sm font-medium text-gray-600 dark:text-gray-400 flex justify-between w-full gap-2 items-center">
-                        <div>
-                            Phone #{index + 1}
-                        </div>
+                        <div>Phone #{index + 1}</div>
                         <div>
                             <button
                                 type="button"
@@ -34,24 +44,27 @@ const PhonePanel = ({ disable = false }: Props) => {
                             >
                                 Delete
                             </button>
-                            <div className="col-span-3">
-                            </div>
+                            <div className="col-span-3"></div>
                         </div>
                     </legend>
 
                     <div>
-                        <label htmlFor={`${name}.${index}.phoneNumber`} className="block text-sm font-medium">Phone Number</label>
+                        <label
+                            htmlFor={`${name}.${index}.phoneNumber`}
+                            className="block text-sm font-medium"
+                        >
+                            Phone Number
+                        </label>
                         <input
                             type="tel"
                             id={`${name}.${index}.phoneNumber`}
-                            {...register(`${name}.${index}.phoneNumber`,
-                                {
-                                    required: "Phone number is required",
-                                    pattern: {
-                                        value: /^[0-9+()-\s]*$/,
-                                        message: "Invalid phone number format",
-                                    }
-                                },)}
+                            {...register(`${name}.${index}.phoneNumber`, {
+                                required: 'Phone number is required',
+                                pattern: {
+                                    value: /^[0-9+()-\s]*$/,
+                                    message: 'Invalid phone number format'
+                                }
+                            })}
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color  "
                             placeholder="Enter phone number"
                         />
@@ -59,10 +72,17 @@ const PhonePanel = ({ disable = false }: Props) => {
                     </div>
 
                     <div>
-                        <label htmlFor={`${name}.${index}.type`} className="block text-sm font-medium">Type</label>
+                        <label
+                            htmlFor={`${name}.${index}.type`}
+                            className="block text-sm font-medium"
+                        >
+                            Type
+                        </label>
                         <select
                             id={`${name}.${index}.type`}
-                            {...register(`${name}.${index}.phoneType`, { required: "Phone type is required" })}
+                            {...register(`${name}.${index}.phoneType`, {
+                                required: 'Phone type is required'
+                            })}
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color  "
                         >
                             <option value="personal">Personal</option>
@@ -72,10 +92,17 @@ const PhonePanel = ({ disable = false }: Props) => {
                     </div>
 
                     <div>
-                        <label htmlFor={`${name}.${index}.preferred`} className="block text-sm font-medium">Preferred</label>
+                        <label
+                            htmlFor={`${name}.${index}.preferred`}
+                            className="block text-sm font-medium"
+                        >
+                            Preferred
+                        </label>
                         <select
                             id={`${name}.${index}.preferred`}
-                            {...register(`${name}.${index}.preferred`, { required: "Preferred status is required" })}
+                            {...register(`${name}.${index}.preferred`, {
+                                required: 'Preferred status is required'
+                            })}
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         >
                             <option value="true">Yes</option>
@@ -89,7 +116,11 @@ const PhonePanel = ({ disable = false }: Props) => {
             <button
                 type="button"
                 onClick={() =>
-                    append({ phoneNumber: '', phoneType: PhoneType.Personal, preferred: PreferredType.False })
+                    append({
+                        phoneNumber: '',
+                        phoneType: PhoneType.Personal,
+                        preferred: PreferredType.False
+                    })
                 }
                 className="btn-primary px-4 py-2 mt-4 rounded-md"
             >

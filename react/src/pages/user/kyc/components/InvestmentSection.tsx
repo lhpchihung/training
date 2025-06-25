@@ -1,15 +1,18 @@
-import { useFormContext } from "react-hook-form";
-import { ExperimentType, RiskPercent, UserData } from "../../personal-information/model";
+import { useFormContext } from 'react-hook-form';
+import { UserData } from '../../personal-information/model';
+import { ExperimentType, RiskPercent } from '../../../../types/user';
 
 type Props = {
-    disable?: boolean
-}
+    disable?: boolean;
+};
 
 const InvestmentSection = ({ disable = false }: Props) => {
+    const name = 'investments';
 
-    const name = "investments";
-
-    const { register, formState: { errors } } = useFormContext<UserData>();
+    const {
+        register,
+        formState: { errors }
+    } = useFormContext<UserData>();
 
     return (
         <div className={`panel dark:text-gray-300 dark:bg-gray-900 ${disable ? 'disabled' : ''}`}>
@@ -26,15 +29,23 @@ const InvestmentSection = ({ disable = false }: Props) => {
                     </label>
                     <select
                         id={`${name}.experiment`}
-                        {...register(`${name}.experiment`, { required: "Experience is required" })}
+                        {...register(`${name}.experiment`, { required: 'Experience is required' })}
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                     >
-                        <option value={ExperimentType.LessThan5Year}>{ExperimentType.LessThan5Year}</option>
-                        <option value={ExperimentType.From5to10Year}>{ExperimentType.From5to10Year}</option>
-                        <option value={ExperimentType.Over10Year}>{ExperimentType.Over10Year}</option>
+                        <option value={ExperimentType.LessThan5Year}>
+                            {ExperimentType.LessThan5Year}
+                        </option>
+                        <option value={ExperimentType.From5to10Year}>
+                            {ExperimentType.From5to10Year}
+                        </option>
+                        <option value={ExperimentType.Over10Year}>
+                            {ExperimentType.Over10Year}
+                        </option>
                     </select>
                     {errors?.[name]?.experiment && (
-                        <p className="text-red-500 text-sm mt-1">{errors?.[name]?.experiment.message}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors?.[name]?.experiment.message}
+                        </p>
                     )}
                 </div>
 
@@ -44,15 +55,19 @@ const InvestmentSection = ({ disable = false }: Props) => {
                     </label>
                     <select
                         id={`${name}.risk-tolerance`}
-                        {...register(`${name}.riskTolerance`, { required: "Risk tolerance is required" })}
+                        {...register(`${name}.riskTolerance`, {
+                            required: 'Risk tolerance is required'
+                        })}
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                     >
                         <option value={RiskPercent.TenPercent}>{RiskPercent.TenPercent}</option>
-                        <option value={RiskPercent.ThirtyPercen}>{RiskPercent.ThirtyPercen}</option>
+                        <option value={RiskPercent.ThirtyPercent}>{RiskPercent.ThirtyPercent}</option>
                         <option value={RiskPercent.AllIn}>{RiskPercent.AllIn}</option>
                     </select>
                     {errors?.[name]?.riskTolerance && (
-                        <p className="text-red-500 text-sm mt-1">{errors?.[name]?.riskTolerance?.message}</p>
+                        <p className="text-red-500 text-sm mt-1">
+                            {errors?.[name]?.riskTolerance?.message}
+                        </p>
                     )}
                 </div>
             </fieldset>

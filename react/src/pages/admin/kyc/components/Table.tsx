@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { SubmissionData } from "../../../user/personal-information/model";
-import TableLine from "../components/TableLine";
-import { fetchSubmissions } from "../../../../services/dummy-api";
-import { showErrorToast } from "../../../../utils/toastUtils";
+import { useEffect, useState } from 'react';
+import TableLine from '../components/TableLine';
+import { fetchSubmissions } from '../../../../services/dummy-api';
+import { showErrorToast } from '../../../../utils/toastUtils';
+import { SubmissionData } from '../../../../models/submission';
 
 type Props = {};
 

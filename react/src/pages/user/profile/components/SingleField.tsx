@@ -1,9 +1,9 @@
-import { toCapitalize } from "../../../../utils/functions"
+import { toCapitalize } from '../../../../utils/functions';
 
 type Props = {
-    infor: string,
-    name: string,
-}
+    infor: string;
+    name: string;
+};
 
 const SingleField = ({ infor, name }: Props) => {
     return (
@@ -25,7 +25,7 @@ const SingleField = ({ infor, name }: Props) => {
                 />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default SingleField
+export default SingleField;

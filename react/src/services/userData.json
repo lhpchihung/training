@@ -1,11 +1,13 @@
 {
     "admin": {
+        "id": "1",
         "email": "hung@example.com",
         "password": "Hung@123",
         "role": "admin",
         "name": "Admin"
     },
     "user": {
+        "id": "2",
         "email": "guest@example.com",
         "password": "Hung@123",
         "role": "user",

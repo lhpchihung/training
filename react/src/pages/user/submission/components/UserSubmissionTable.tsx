@@ -1,47 +1,47 @@
-import { useEffect, useState } from "react";
-import { showErrorToast } from "../../../../utils/toastUtils";
-import { UserSubmission } from "../../personal-information/model";
-import UserSubmissionTableLine from "./UserSubmissionTableLine";
-import { fetchUserSubmissions } from "../../../../services/dummy-api";
+import { useEffect, useState } from 'react';
+import { showErrorToast } from '../../../../utils/toastUtils';
+import UserSubmissionTableLine from './UserSubmissionTableLine';
+import { fetchUserSubmissions } from '../../../../services/dummy-api';
+import { UserSubmission } from '../model';
 
 type Props = {};
 
 const UserSubmissionTable = (props: Props) => {
     const mockSubmissions = [
         {
-            id: "1",
-            name: "John Doe",
-            status: "Waiting",
-            requestDate: "2025-06-01",
+            id: '1',
+            name: 'John Doe',
+            status: 'Waiting',
+            requestDate: '2025-06-01',
             confirmDate: null,
-            action: "Request",
+            action: 'Request'
         },
         {
-            id: "2",
-            name: "Jane Smith",
-            status: "Approve",
-            requestDate: "2025-05-30",
-            confirmDate: "2025-06-02",
-            action: "Completed",
+            id: '2',
+            name: 'Jane Smith',
+            status: 'Approve',
+            requestDate: '2025-05-30',
+            confirmDate: '2025-06-02',
+            action: 'Completed'
         },
         {
-            id: "3",
-            name: "Alice Johnson",
-            status: "Reject",
-            requestDate: "2025-05-25",
-            confirmDate: "2025-05-28",
-            action: "Completed",
+            id: '3',
+            name: 'Alice Johnson',
+            status: 'Reject',
+            requestDate: '2025-05-25',
+            confirmDate: '2025-05-28',
+            action: 'Completed'
         },
         {
-            id: "4",
-            name: "Bob Brown",
-            status: "Waiting",
-            requestDate: "2025-06-05",
+            id: '4',
+            name: 'Bob Brown',
+            status: 'Waiting',
+            requestDate: '2025-06-05',
             confirmDate: null,
-            action: "Request",
-        },
+            action: 'Request'
+        }
     ];
-    
+
     const [data, setData] = useState<UserSubmission[]>(mockSubmissions as any);
 
     useEffect(() => {
@@ -50,8 +50,8 @@ const UserSubmissionTable = (props: Props) => {
                 const result = await fetchUserSubmissions();
                 setData(result);
             } catch (error) {
-                showErrorToast("Error when fetching submissions!");
-                console.error("Error fetching submissions:", error);
+                showErrorToast('Error when fetching submissions!');
+                console.error('Error fetching submissions:', error);
             }
         };
 
@@ -83,7 +83,11 @@ const UserSubmissionTable = (props: Props) => {
                 <tbody>
                     {data.length > 0 ? (
                         data.map((submission, index) => (
-                            <UserSubmissionTableLine key={index} submissionData={submission} setData={setData} />
+                            <UserSubmissionTableLine
+                                key={index}
+                                submissionData={submission}
+                                setData={setData}
+                            />
                         ))
                     ) : (
                         <tr>

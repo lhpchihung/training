@@ -1,7 +1,6 @@
-import { SubmissionData, UserData, UserSubmission } from '../pages/user/personal-information/model';
+import { SubmissionData } from '../models/submission';
+import { UserSubmission } from '../pages/user/submission/model';
 
-const USER_DATA_URL = 'https://dummyjson.com/users/8965-2d91-4ddb-a6b5';
-const SUBMIT_USER_DATA_URL = 'https://dummyjson.com/c/9017-7199-4849-834e';
 const SUBMISSION_INFO_URL = 'https://dummyjson.com/c/5a22-8836-417c-90c6';
 const SUBMISSION_STATUS_URL = 'https://dummyjson.com/c/a67d-5056-4e62-89ff';
 const USER_SUBMISSION = 'https://dummyjson.com/c/09b1-4cde-45ee-b732';
@@ -9,41 +8,6 @@ const USER_SUBMISSION = 'https://dummyjson.com/c/09b1-4cde-45ee-b732';
 const LOGIN_URL = 'https://dummyjson.com/auth/login';
 const SIGNUP_URL = 'https://dummyjson.com/users/add';
 
-export const fetchUserData = async (): Promise<UserData> => {
-    try {
-        const response = await fetch(USER_DATA_URL);
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data');
-        }
-        const data: UserData = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        throw error;
-    }
-};
-
-export const updateUserData = async (userData: UserData): Promise<UserData> => {
-    try {
-        const response = await fetch(SUBMIT_USER_DATA_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to update user data');
-        }
-
-        const updatedData: UserData = await response.json();
-        return updatedData;
-    } catch (error) {
-        console.error('Error updating user data:', error);
-        throw error;
-    }
-};
 
 export const fetchSubmissions = async (): Promise<SubmissionData[]> => {
     try {

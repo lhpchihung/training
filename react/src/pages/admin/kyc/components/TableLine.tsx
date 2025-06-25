@@ -1,9 +1,10 @@
-import { SubmissionAction, SubmissionData, SubmissionStatus } from "../../../user/personal-information/model";
-import { updateSubmissionStatus } from "../../../../services/dummy-api";
-import { showErrorToast, showSuccessToast } from "../../../../utils/toastUtils";
-import { toCapitalize } from "../../../../utils/functions";
-import { useState } from "react";
-import PrimaryButton from "../../../.././components/ui/Button/PrimaryButton";
+import { updateSubmissionStatus } from '../../../../services/dummy-api';
+import { showErrorToast, showSuccessToast } from '../../../../utils/toastUtils';
+import { toCapitalize } from '../../../../utils/functions';
+import { useState } from 'react';
+import PrimaryButton from '../../../.././components/ui/Button/PrimaryButton';
+import { SubmissionAction, SubmissionStatus } from '../../../../types/submission';
+import { SubmissionData } from '../../../../models/submission';
 
 type Props = {
     submissionData: SubmissionData;
@@ -13,9 +14,9 @@ type Props = {
 const TableLine = ({ submissionData, setData }: Props) => {
     const { name, status, date, action } = submissionData;
     const [loading, setLoading] = useState<boolean>(false);
-    const [modalAction, setModalAction] = useState<"approve" | "reject" | null>(null);
+    const [modalAction, setModalAction] = useState<'approve' | 'reject' | null>(null);
 
-    const handleAction = async (action: "approve" | "reject") => {
+    const handleAction = async (action: 'approve' | 'reject') => {
         setLoading(true);
         try {
             const updatedSubmission = await updateSubmissionStatus(submissionData.id, action);
@@ -25,17 +26,23 @@ const TableLine = ({ submissionData, setData }: Props) => {
                 prevData.map((item) =>
                     item.id === submissionData.id
                         ? {
-                            ...item,
-                            action: action === "approve" ? SubmissionAction.Approve : SubmissionAction.Reject,
-                            status: action === "approve" ? SubmissionStatus.Active : SubmissionStatus.Inactive,
-                        }
+                              ...item,
+                              action:
+                                  action === 'approve'
+                                      ? SubmissionAction.Approve
+                                      : SubmissionAction.Reject,
+                              status:
+                                  action === 'approve'
+                                      ? SubmissionStatus.Active
+                                      : SubmissionStatus.Inactive
+                          }
                         : item
                 )
             );
 
             showSuccessToast(`${toCapitalize(action)} submission successfully!`);
         } catch (error) {
-            showErrorToast("Update submission failed!");
+            showErrorToast('Update submission failed!');
             console.error(`Error performing action '${action}':`, error);
         } finally {
             setLoading(false);
@@ -43,7 +50,7 @@ const TableLine = ({ submissionData, setData }: Props) => {
         }
     };
 
-    const openModal = (action: "approve" | "reject") => {
+    const openModal = (action: 'approve' | 'reject') => {
         setModalAction(action);
     };
 
@@ -59,23 +66,27 @@ const TableLine = ({ submissionData, setData }: Props) => {
                 </td>
                 <td className="px-6 py-4">
                     <span
-                        className={`px-2 py-1 text-xs font-medium leading-tight rounded-full ${status === SubmissionStatus.Active
-                            ? "text-green-700 bg-green-100"
-                            : status === SubmissionStatus.Inactive
-                                ? "text-red-700 bg-red-100"
-                                : "text-yellow-700 bg-yellow-100"
-                            }`}
+                        className={`px-2 py-1 text-xs font-medium leading-tight rounded-full ${
+                            status === SubmissionStatus.Active
+                                ? 'text-green-700 bg-green-100'
+                                : status === SubmissionStatus.Inactive
+                                ? 'text-red-700 bg-red-100'
+                                : 'text-yellow-700 bg-yellow-100'
+                        }`}
                     >
                         {status}
                     </span>
                 </td>
                 <td className="px-6 py-4">{date}</td>
-                <td className="px-6 py-4 text-center" style={{display: 'flex', gap: '10px', justifyContent: 'center'}}>
+                <td
+                    className="px-6 py-4 text-center"
+                    style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}
+                >
                     {action === SubmissionAction.Waiting ? (
                         <>
                             <PrimaryButton
                                 title="Approve"
-                                onClick={() => openModal("approve")}
+                                onClick={() => openModal('approve')}
                                 padding="px-3 py-2"
                                 bgColor="bg-green-700"
                                 hoverBgColor="hover:bg-green-800"
@@ -83,7 +94,7 @@ const TableLine = ({ submissionData, setData }: Props) => {
                             />
                             <PrimaryButton
                                 title="Reject"
-                                onClick={() => openModal("reject")}
+                                onClick={() => openModal('reject')}
                                 padding="px-3 py-2"
                                 bgColor="bg-red-700"
                                 hoverBgColor="hover:bg-red-800"
@@ -92,12 +103,15 @@ const TableLine = ({ submissionData, setData }: Props) => {
                         </>
                     ) : (
                         <span
-                            className={`px-2 py-1 text-xs font-medium leading-tight rounded-full ${submissionData.action === SubmissionAction.Approve
-                                ? "text-green-700 bg-green-100"
-                                : "text-red-700 bg-red-100"
-                                }`}
+                            className={`px-2 py-1 text-xs font-medium leading-tight rounded-full ${
+                                submissionData.action === SubmissionAction.Approve
+                                    ? 'text-green-700 bg-green-100'
+                                    : 'text-red-700 bg-red-100'
+                            }`}
                         >
-                            {submissionData.action === SubmissionAction.Approve ? "Approved" : "Rejected"}
+                            {submissionData.action === SubmissionAction.Approve
+                                ? 'Approved'
+                                : 'Rejected'}
                         </span>
                     )}
                 </td>
@@ -108,7 +122,8 @@ const TableLine = ({ submissionData, setData }: Props) => {
                     <div className="bg-white p-6 rounded-lg shadow-lg">
                         <div className="text-center mb-4">
                             <p className="text-lg">
-                                Are you sure you want to {modalAction === "approve" ? "approve" : "reject"} this submission?
+                                Are you sure you want to{' '}
+                                {modalAction === 'approve' ? 'approve' : 'reject'} this submission?
                             </p>
                         </div>
                         <div className="flex justify-center gap-6">
@@ -125,8 +140,12 @@ const TableLine = ({ submissionData, setData }: Props) => {
                                 loading={loading}
                                 onClick={() => handleAction(modalAction)}
                                 padding="px-3 py-2"
-                                bgColor={modalAction === "approve" ? "bg-green-700" : "bg-red-700"}
-                                hoverBgColor={modalAction === "approve" ? "hover:bg-green-800" : "hover:bg-red-800"}
+                                bgColor={modalAction === 'approve' ? 'bg-green-700' : 'bg-red-700'}
+                                hoverBgColor={
+                                    modalAction === 'approve'
+                                        ? 'hover:bg-green-800'
+                                        : 'hover:bg-red-800'
+                                }
                                 textColor="text-white"
                             />
                         </div>

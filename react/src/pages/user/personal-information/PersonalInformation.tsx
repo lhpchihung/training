@@ -1,22 +1,22 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import Breadcrumb from "../../../components/ui/Breadcrumb/Breadcrumb";
-import BasicInformation from "./components/BasicInformation";
-import Identification from "./components/Identification";
-import Occupation from "./components/Occupation";
-import AddressPanel from "./components/AddressPanel";
-import PhonePanel from "./components/PhonePanel";
-import EmailPanel from "./components/EmailPanel";
-import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
-import { fetchUserData, updateUserData } from "../../../services/dummy-api";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import { UserData } from "./model";
+import { FormProvider, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
+import BasicInformation from './components/BasicInformation';
+import Identification from './components/Identification';
+import Occupation from './components/Occupation';
+import AddressPanel from './components/AddressPanel';
+import PhonePanel from './components/PhonePanel';
+import EmailPanel from './components/EmailPanel';
+import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
+// import { fetchUserData, updateUserData } from '../../../services/dummy-api';
+import { showErrorToast, showSuccessToast } from '../../../utils/toastUtils';
+import { User } from './model';
 
 const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
-    { label: "Home", href: "/" },
-    { label: "Users", href: "/users" },
-    { label: "Personal Information", current: true },
+    { label: 'Home', href: '/' },
+    { label: 'Users', href: '/users' },
+    { label: 'Personal Information', current: true }
 ];
 
 type Props = {
@@ -24,7 +24,7 @@ type Props = {
 };
 
 const PersonalInformation = ({ disable = false }: Props) => {
-    const methods = useForm<UserData>();
+    const methods = useForm<User>();
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
@@ -44,14 +44,14 @@ const PersonalInformation = ({ disable = false }: Props) => {
     //     fetchData();
     // }, [methods]);
 
-    const onSubmit = methods.handleSubmit(async (data: UserData) => {
+    const onSubmit = methods.handleSubmit(async (data: User) => {
         setLoading(true);
         try {
-            await updateUserData(data);
-            showSuccessToast("Updated successfully!");
-            navigate("/pages/user/profile");
+            // await updateUserData(data);
+            // showSuccessToast('Updated successfully!');
+            navigate('/pages/user/profile');
         } catch (error) {
-            console.error("Error updating user data:", error);
+            console.error('Error updating user data:', error);
             showErrorToast(`Updating error: ${String(error)}`);
         } finally {
             setLoading(false);
@@ -59,14 +59,20 @@ const PersonalInformation = ({ disable = false }: Props) => {
     });
 
     return (
-        <div className={`grid grid-cols-1 px-4 pt-6 xl:gap-4 dark:bg-gray-900 ${disable ? "disabled" : ""}`}>
+        <div
+            className={`grid grid-cols-1 px-4 pt-6 xl:gap-4 dark:bg-gray-900 ${
+                disable ? 'disabled' : ''
+            }`}
+        >
             <Breadcrumb items={breadcrumbItems} />
 
             <FormProvider {...methods}>
                 <form className="mt-6 space-y-6" onSubmit={onSubmit}>
                     <BasicInformation />
                     <div className="border panel rounded-md p-4 dark:text-gray-300 dark:bg-gray-900">
-                        <h3 className="text-lg font-medium mb-4 text-blue-800 dark:text-gray-300">Contact Information</h3>
+                        <h3 className="text-lg font-medium mb-4 text-blue-800 dark:text-gray-300">
+                            Contact Information
+                        </h3>
                         <AddressPanel />
                         <EmailPanel />
                         <PhonePanel />

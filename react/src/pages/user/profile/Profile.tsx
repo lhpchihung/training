@@ -1,65 +1,36 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
-import { UserData } from '../personal-information/model';
+import { Profile } from '../personal-information/model';
 import SingleField from './components/SingleField';
-import { fetchUserData } from '../../../services/dummy-api';
-
-export const mockUserData = {
-    basicInfor: {
-        firstName: "John",
-        lastName: "Doe",
-        dateOfBirth: "1990-01-01",
-    },
-    addresses: [
-        {
-            country: "United States",
-            city: "New York",
-            street: "123 Main St",
-            postalCode: "10001",
-        },
-    ],
-    emails: [
-        {
-            emailAddress: "john.doe@example.com",
-        },
-    ],
-    phones: [
-        {
-            phoneNumber: "+1-202-555-0173",
-        },
-    ],
-    organization: "Acme Corp",
-    role: "Admin",
-    department: "IT",
-};
-
-type Props = {}
+import { fetchUserData } from '../../../services/user';
+import { Link } from 'react-router-dom';
+import NoProfile from './components/NoProfile';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Users', href: '/users' },
-    { label: 'Personal Information', current: true },
+    { label: 'Personal Information', current: true }
 ];
 
-const Profile = (props: Props) => {
-    const [userData, setUserData] = useState<UserData | null>(null);
+const Profile = () => {
+    const [profile, setProfile] = useState<Profile | null>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const loadUserData = async () => {
             try {
-                // const response = await fetchUserData();
-                // setUserData(response);
-                setUserData(mockUserData as any);
+                const data = await fetchUserData();
+                setUserData(data);
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error('Error loading user data:', error);
+                setUserData(null);
             }
         };
 
-        fetchData();
+        loadUserData();
     }, []);
 
     if (!userData) {
-        return <div>Error loading user data</div>;
+        return <NoUserData />;
     }
 
     return (
@@ -75,8 +46,12 @@ const Profile = (props: Props) => {
                             alt="Jese picture"
                         />
                         <div>
-                            <h3 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">Profile picture</h3>
-                            <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">JPG, GIF or PNG. Max size of 800K</div>
+                            <h3 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+                                Profile picture
+                            </h3>
+                            <div className="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                                JPG, GIF or PNG. Max size of 800K
+                            </div>
                             <div className="flex items-center space-x-4">
                                 <button
                                     type="button"
@@ -96,33 +71,54 @@ const Profile = (props: Props) => {
                 </div>
 
                 <div className="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-                    <h3 className="mb-4 text-xl font-semibold dark:text-white">General information</h3>
+                    <h3 className="mb-4 text-xl font-semibold dark:text-white">
+                        General information
+                    </h3>
                     <form>
                         <fieldset disabled={true}>
                             <div className="grid grid-cols-6 gap-6">
-                                <SingleField infor={userData.basicInfor.firstName} name="first name" />
-                                <SingleField infor={userData.basicInfor.lastName} name="last name" />
+                                <SingleField
+                                    infor={userData.basicInfor.firstName}
+                                    name="first name"
+                                />
+                                <SingleField
+                                    infor={userData.basicInfor.lastName}
+                                    name="last name"
+                                />
                                 <SingleField infor={userData.addresses[0].country} name="country" />
                                 <SingleField infor={userData.addresses[0].city} name="city" />
                                 <SingleField infor={userData.addresses[0].street} name="address" />
                                 <SingleField infor={userData.emails[0].emailAddress} name="email" />
                                 <SingleField infor={userData.phones[0].phoneNumber} name="phone" />
-                                <SingleField infor={userData.basicInfor.dateOfBirth} name="birth day" />
-                                <SingleField infor={userData.organization ?? ''} name="organization" />
+                                <SingleField
+                                    infor={userData.basicInfor.dateOfBirth}
+                                    name="birth day"
+                                />
+                                <SingleField
+                                    infor={userData.organization ?? ''}
+                                    name="organization"
+                                />
                                 <SingleField infor={userData.role} name="role" />
                                 <SingleField infor={userData.department ?? ''} name="deparment" />
-                                <SingleField infor={userData.addresses[0].postalCode ?? ''} name="zip/postal code" />
+                                <SingleField
+                                    infor={userData.addresses[0].postalCode ?? ''}
+                                    name="zip/postal code"
+                                />
                                 <div className="col-span-6 sm:col-full">
-                                    <a
-                                        href='1/pi'
+                                    <Link
+                                        to="/pi"
                                         className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                        type="submit">Edit
-                                    </a>
-                                    <a
-                                        href='1/kyc'
+                                        type="submit"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <Link
+                                        to="/kyc"
                                         className="ml-1 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                        type="submit">KYC
-                                    </a>
+                                        type="submit"
+                                    >
+                                        KYC
+                                    </Link>
                                 </div>
                             </div>
                         </fieldset>
@@ -133,4 +129,4 @@ const Profile = (props: Props) => {
     );
 };
 
-export default Profile
+export default Profile;

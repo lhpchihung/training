@@ -1,36 +1,35 @@
-import { FormProvider, useForm } from "react-hook-form";
-import Breadcrumb from "../../../components/ui/Breadcrumb/Breadcrumb";
-import AssetSession from "./components/AssetSection";
-import InvestmentSection from "./components/InvestmentSection";
-import LiabilitySection from "./components/LiabilitySection";
-import NetworthSection from "./components/NetworthSection";
-import WealthSection from "./components/WealthSection";
-import { UserData } from "../personal-information/model";
-import IncomeSession from "./components/IncomeSession";
-import { useEffect, useState } from "react";
-import BasicInformation from "../personal-information/components/BasicInformation";
-import AddressPanel from "../personal-information/components/AddressPanel";
-import EmailPanel from "../personal-information/components/EmailPanel";
-import PhonePanel from "../personal-information/components/PhonePanel";
-import Identification from "../personal-information/components/Identification";
-import Occupation from "../personal-information/components/Occupation";
-import { fetchUserData, updateUserData } from "../../../services/dummy-api";
-import { showErrorToast, showSuccessToast } from "../../../utils/toastUtils";
-import PrimaryButton from "../../../components/ui/Button/PrimaryButton";
-import { useNavigate } from "react-router";
+import { FormProvider, useForm } from 'react-hook-form';
+import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
+import AssetSession from './components/AssetSection';
+import InvestmentSection from './components/InvestmentSection';
+import LiabilitySection from './components/LiabilitySection';
+import NetworthSection from './components/NetworthSection';
+import WealthSection from './components/WealthSection';
+import { UserData } from '../personal-information/model';
+import IncomeSession from './components/IncomeSession';
+import { useEffect, useState } from 'react';
+import BasicInformation from '../personal-information/components/BasicInformation';
+import AddressPanel from '../personal-information/components/AddressPanel';
+import EmailPanel from '../personal-information/components/EmailPanel';
+import PhonePanel from '../personal-information/components/PhonePanel';
+import Identification from '../personal-information/components/Identification';
+import Occupation from '../personal-information/components/Occupation';
+// import { fetchUserData, updateUserData } from '../../../services/dummy-api';
+import { showErrorToast, showSuccessToast } from '../../../utils/toastUtils';
+import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
+import { useNavigate } from 'react-router';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Users', href: '/users' },
-    { label: 'Personal KYC', current: true },
+    { label: 'Personal KYC', current: true }
 ];
 
 type Props = {
-    disable?: boolean
-}
+    disable?: boolean;
+};
 
 const UserKYC = ({ disable = true }: Props) => {
-
     const methods = useForm<UserData>();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
@@ -52,27 +51,36 @@ const UserKYC = ({ disable = true }: Props) => {
     const onSubmit = methods.handleSubmit(async (data) => {
         setLoading(true);
         try {
-            const updatedData = await updateUserData(data);
-            showSuccessToast('Updated successfully!');
-            console.log('User data updated successfully:', updatedData);
-            navigate("/pages/user/profile");
+            // const updatedData = await updateUserData(data);
+            // showSuccessToast('Updated successfully!');
+            // console.log('User data updated successfully:', updatedData);
+            navigate('/pages/user/profile');
         } catch (error) {
             console.error('Error updating user data:', error);
-            showErrorToast(`Updating error: ${error}`)
+            showErrorToast(`Updating error: ${error}`);
         } finally {
             setLoading(false);
         }
     });
 
     return (
-        <div className={`grid grid-cols-1 px-4 pt-6 xl:gap-4 dark:bg-gray-900 ${disable ? 'disabled' : ''}`}>
+        <div
+            className={`grid grid-cols-1 px-4 pt-6 xl:gap-4 dark:bg-gray-900 ${
+                disable ? 'disabled' : ''
+            }`}
+        >
             <Breadcrumb items={breadcrumbItems} />
 
             <FormProvider {...methods}>
-                <form className="mt-6 space-y-6 dark:text-gray-300 dark:bg-gray-900" onSubmit={onSubmit}>
+                <form
+                    className="mt-6 space-y-6 dark:text-gray-300 dark:bg-gray-900"
+                    onSubmit={onSubmit}
+                >
                     <BasicInformation />
                     <div className="border panel rounded-md p-4 dark:text-gray-300 dark:bg-gray-900">
-                        <h3 className="text-lg font-medium mb-4 text-blue-800 dark:text-gray-300">Contact Information</h3>
+                        <h3 className="text-lg font-medium mb-4 text-blue-800 dark:text-gray-300">
+                            Contact Information
+                        </h3>
                         <AddressPanel />
                         <EmailPanel />
                         <PhonePanel />
@@ -91,7 +99,7 @@ const UserKYC = ({ disable = true }: Props) => {
                 </form>
             </FormProvider>
         </div>
-    )
-}
+    );
+};
 
 export default UserKYC;
