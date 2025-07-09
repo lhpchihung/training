@@ -1,7 +1,7 @@
-import Forbidden from "./Forbidden";
-import NotFound from "./NotFound";
-import CommonError from "./CommonError";
-import ErrorPage from "./Error";
+import Forbidden from './Forbidden';
+import NotFound from './NotFound';
+import CommonError from './CommonError';
+import ErrorPage from './Error';
 
 const errorRoutes = [
     {
@@ -19,9 +19,9 @@ const errorRoutes = [
             {
                 path: '*',
                 element: <CommonError />
-            },
+            }
         ]
-    },
-]
+    }
+];
 
 export default errorRoutes;

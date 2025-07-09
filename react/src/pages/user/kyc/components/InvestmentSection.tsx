@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { UserData } from '../../personal-information/model';
+import { User } from '../../personal-information/model';
 import { ExperimentType, RiskPercent } from '../../../../types/user';
 
 type Props = {
@@ -7,12 +7,12 @@ type Props = {
 };
 
 const InvestmentSection = ({ disable = false }: Props) => {
-    const name = 'investments';
+    const name = 'profile.investments';
 
     const {
         register,
         formState: { errors }
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     return (
         <div className={`panel dark:text-gray-300 dark:bg-gray-900 ${disable ? 'disabled' : ''}`}>
@@ -42,9 +42,9 @@ const InvestmentSection = ({ disable = false }: Props) => {
                             {ExperimentType.Over10Year}
                         </option>
                     </select>
-                    {errors?.[name]?.experiment && (
+                    {errors?.profile?.investments?.experiment && (
                         <p className="text-red-500 text-sm mt-1">
-                            {errors?.[name]?.experiment.message}
+                            {errors.profile.investments.experiment?.message}
                         </p>
                     )}
                 </div>
@@ -64,9 +64,9 @@ const InvestmentSection = ({ disable = false }: Props) => {
                         <option value={RiskPercent.ThirtyPercent}>{RiskPercent.ThirtyPercent}</option>
                         <option value={RiskPercent.AllIn}>{RiskPercent.AllIn}</option>
                     </select>
-                    {errors?.[name]?.riskTolerance && (
+                    {errors?.profile?.investments?.riskTolerance && (
                         <p className="text-red-500 text-sm mt-1">
-                            {errors?.[name]?.riskTolerance?.message}
+                            {errors.profile.investments.riskTolerance?.message}
                         </p>
                     )}
                 </div>

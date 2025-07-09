@@ -11,7 +11,7 @@ import { UserRole } from '../../types/user';
 import { AuthenticatedContext } from '../../shared/Authenticated';
 
 import { loginUser } from '../../services/dummy-api';
-import userData from '../../services/userData.json';
+import mockUsersData from '../../services/mockUsers.json';
 import config from '../../config/config.json';
 import { User } from '../../pages/user/personal-information/model';
 
@@ -44,10 +44,10 @@ const Login = () => {
 
             sessionStorage.setItem('accessToken', response.accessToken);
 
-            const isAdmin = data.email === userData.admin.email;
+            const isAdmin = data.email === mockUsersData.admin.email;
             const user: User = {
-                id: userData.user.id,
-                name: isAdmin ? userData.admin.name : userData.user.name,
+                id: mockUsersData.user.id,
+                name: isAdmin ? mockUsersData.admin.name : mockUsersData.user.name,
                 email: data.email,
                 role: isAdmin ? UserRole.Admin : UserRole.User
             };

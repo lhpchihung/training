@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { UserData } from '../../personal-information/model';
+import { User } from '../../personal-information/model';
 import { SourceOfWealthType } from '../../../../types/user';
 
 type Props = {
@@ -7,14 +7,14 @@ type Props = {
 };
 
 const WealthSection = ({ disable = false }: Props) => {
-    const name = 'sourceOfWealths';
+    const name = 'profile.sourceOfWealths';
 
     const {
         register,
         formState: { errors },
         control,
         watch
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -65,9 +65,9 @@ const WealthSection = ({ disable = false }: Props) => {
                             <option value="inheritance">Inheritance</option>
                             <option value="donation">Donation</option>
                         </select>
-                        {errors?.[name]?.[index]?.sourceOfWealthType && (
+                        {errors?.profile?.sourceOfWealths?.[index]?.sourceOfWealthType && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors[name][index]?.sourceOfWealthType?.message}
+                                {errors.profile.sourceOfWealths[index]?.sourceOfWealthType?.message}
                             </p>
                         )}
                     </div>
@@ -89,9 +89,9 @@ const WealthSection = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                             placeholder="Enter amount"
                         />
-                        {errors?.[name]?.[index]?.amount && (
+                        {errors?.profile?.sourceOfWealths?.[index]?.amount && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors[name][index]?.amount?.message}
+                                {errors.profile.sourceOfWealths[index]?.amount?.message}
                             </p>
                         )}
                     </div>

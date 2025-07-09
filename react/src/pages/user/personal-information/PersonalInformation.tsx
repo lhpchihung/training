@@ -12,6 +12,7 @@ import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
 // import { fetchUserData, updateUserData } from '../../../services/dummy-api';
 import { showErrorToast, showSuccessToast } from '../../../utils/toastUtils';
 import { User } from './model';
+import { updateUserData } from '../../../services/user';
 
 const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
     { label: 'Home', href: '/' },
@@ -47,8 +48,8 @@ const PersonalInformation = ({ disable = false }: Props) => {
     const onSubmit = methods.handleSubmit(async (data: User) => {
         setLoading(true);
         try {
-            // await updateUserData(data);
-            // showSuccessToast('Updated successfully!');
+            await updateUserData(data);
+            showSuccessToast('Updated successfully!');
             navigate('/pages/user/profile');
         } catch (error) {
             console.error('Error updating user data:', error);

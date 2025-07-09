@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { UserData } from '../model';
+import { User } from '../model';
 import ErrorMessage from '../../../../components/ui/Error/Error';
 import { useEffect } from 'react';
 import { IdentificationType } from '../../../../types/user';
@@ -9,13 +9,13 @@ type Props = {
 };
 
 const Identification = ({ disable = false }: Props) => {
-    const name = 'identification';
+    const name = 'profile.identification';
 
     const {
         register,
         formState: { errors },
         control
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -79,7 +79,7 @@ const Identification = ({ disable = false }: Props) => {
                             <option value="national-id-card">National ID Card</option>
                             <option value="driver-license">Driver License</option>
                         </select>
-                        <ErrorMessage errors={errors?.identification?.[index]?.idType?.message} />
+                        <ErrorMessage errors={errors?.profile?.identification?.[index]?.idType?.message} />
                     </div>
                     <div>
                         <label
@@ -97,7 +97,7 @@ const Identification = ({ disable = false }: Props) => {
                             })}
                         />
                         <ErrorMessage
-                            errors={errors?.identification?.[index]?.expiryDate?.message}
+                            errors={errors?.profile?.identification?.[index]?.expiryDate?.message}
                         />
                     </div>
                     <div>
@@ -115,7 +115,7 @@ const Identification = ({ disable = false }: Props) => {
                                 required: 'Document upload is required'
                             })}
                         />
-                        <ErrorMessage errors={errors?.identification?.[index]?.file?.message} />
+                        <ErrorMessage errors={errors?.profile?.identification?.[index]?.file?.message} />
                     </div>
                 </fieldset>
             ))}

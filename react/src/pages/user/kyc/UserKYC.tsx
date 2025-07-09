@@ -3,9 +3,9 @@ import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
 import AssetSession from './components/AssetSection';
 import InvestmentSection from './components/InvestmentSection';
 import LiabilitySection from './components/LiabilitySection';
-import NetworthSection from './components/NetworthSection';
+import NetWorthSection from './components/NetWorthSection';
 import WealthSection from './components/WealthSection';
-import { UserData } from '../personal-information/model';
+import { User } from '../personal-information/model';
 import IncomeSession from './components/IncomeSession';
 import { useEffect, useState } from 'react';
 import BasicInformation from '../personal-information/components/BasicInformation';
@@ -30,7 +30,7 @@ type Props = {
 };
 
 const UserKYC = ({ disable = true }: Props) => {
-    const methods = useForm<UserData>();
+    const methods = useForm<User>();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -91,7 +91,7 @@ const UserKYC = ({ disable = true }: Props) => {
                     <AssetSession />
                     <LiabilitySection />
                     <WealthSection />
-                    <NetworthSection />
+                    <NetWorthSection />
                     <InvestmentSection />
                     <div className="text-right">
                         <PrimaryButton title="Submit" loading={loading} onClick={onSubmit} />

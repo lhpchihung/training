@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import { UserData } from '../model';
+import { User } from '../model';
 import ErrorMessage from '../../../../components/ui/Error/Error';
 
 type Props = {
@@ -11,7 +11,7 @@ const BasicInformation = ({ disable = false }: Props) => {
         register,
         formState: { errors },
         setValue
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     return (
         <div
@@ -32,11 +32,11 @@ const BasicInformation = ({ disable = false }: Props) => {
                         id="first-name"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         placeholder="Enter your first name"
-                        {...register('basicInfor.firstName', {
+                        {...register('profile.basicInfor.firstName', {
                             required: 'First name is required'
                         })}
                     />
-                    <ErrorMessage errors={errors.basicInfor?.firstName?.message} />
+                    <ErrorMessage errors={errors.profile?.basicInfor?.firstName?.message} />
                 </div>
                 <div>
                     <label htmlFor="last-name" className="block text-sm font-medium">
@@ -47,9 +47,9 @@ const BasicInformation = ({ disable = false }: Props) => {
                         id="last-name"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         placeholder="Enter your last name"
-                        {...register('basicInfor.lastName', { required: 'Last name is required' })}
+                        {...register('profile.basicInfor.lastName', { required: 'Last name is required' })}
                     />
-                    <ErrorMessage errors={errors.basicInfor?.lastName?.message} />
+                    <ErrorMessage errors={errors.profile?.basicInfor?.lastName?.message} />
                 </div>
                 <div>
                     <label htmlFor="middle-name" className="block text-sm font-medium">
@@ -60,7 +60,7 @@ const BasicInformation = ({ disable = false }: Props) => {
                         id="middle-name"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         placeholder="Enter your middle name"
-                        {...register('basicInfor.middleName')}
+                        {...register('profile.basicInfor.middleName')}
                     />
                 </div>
                 <div>
@@ -71,7 +71,7 @@ const BasicInformation = ({ disable = false }: Props) => {
                         type="date"
                         id="dob"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
-                        {...register('basicInfor.dateOfBirth', {
+                        {...register('profile.basicInfor.dateOfBirth', {
                             required: 'Date of Birth is required',
                             onChange(event) {
                                 const birthDate = new Date(event.target.value);
@@ -84,11 +84,11 @@ const BasicInformation = ({ disable = false }: Props) => {
                                 ) {
                                     age--;
                                 }
-                                setValue('basicInfor.age', age);
+                                setValue('profile.basicInfor.age', age);
                             }
                         })}
                     />
-                    <ErrorMessage errors={errors.basicInfor?.dateOfBirth?.message} />
+                    <ErrorMessage errors={errors.profile?.basicInfor?.dateOfBirth?.message} />
                 </div>
 
                 <div>
@@ -100,7 +100,7 @@ const BasicInformation = ({ disable = false }: Props) => {
                         id="age"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         placeholder="Enter your age"
-                        {...register('basicInfor.age', {
+                        {...register('profile.basicInfor.age', {
                             min: {
                                 value: 18,
                                 message: 'Age is not less than 18'
@@ -112,7 +112,7 @@ const BasicInformation = ({ disable = false }: Props) => {
                         })}
                         readOnly
                     />
-                    <ErrorMessage errors={errors.basicInfor?.age?.message} />
+                    <ErrorMessage errors={errors.profile?.basicInfor?.age?.message} />
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
-import { Profile } from '../personal-information/model';
+import { User, Profile } from '../personal-information/model';
 import SingleField from './components/SingleField';
-import { fetchUserData } from '../../../services/user';
+import { fetchUserData, updateUserData } from '../../../services/user';
 import { Link } from 'react-router-dom';
 import NoProfile from './components/NoProfile';
 
@@ -12,8 +12,8 @@ const breadcrumbItems = [
     { label: 'Personal Information', current: true }
 ];
 
-const Profile = () => {
-    const [profile, setProfile] = useState<Profile | null>(null);
+const ProfilePage = () => {
+    const [userData, setUserData] = useState<User | null>(null);
 
     useEffect(() => {
         const loadUserData = async () => {
@@ -29,8 +29,8 @@ const Profile = () => {
         loadUserData();
     }, []);
 
-    if (!userData) {
-        return <NoUserData />;
+    if (!userData?.profile) {
+        return <NoProfile />;
     }
 
     return (
@@ -43,7 +43,7 @@ const Profile = () => {
                         <img
                             className="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
                             src="/images/users/bonnie-green-2x.png"
-                            alt="Jese picture"
+                            alt="User picture"
                         />
                         <div>
                             <h3 className="mb-1 text-xl font-bold text-gray-900 dark:text-white">
@@ -78,44 +78,60 @@ const Profile = () => {
                         <fieldset disabled={true}>
                             <div className="grid grid-cols-6 gap-6">
                                 <SingleField
-                                    infor={userData.basicInfor.firstName}
-                                    name="first name"
+                                    infor={userData.profile.basicInfor.firstName}
+                                    name="First Name"
                                 />
                                 <SingleField
-                                    infor={userData.basicInfor.lastName}
-                                    name="last name"
-                                />
-                                <SingleField infor={userData.addresses[0].country} name="country" />
-                                <SingleField infor={userData.addresses[0].city} name="city" />
-                                <SingleField infor={userData.addresses[0].street} name="address" />
-                                <SingleField infor={userData.emails[0].emailAddress} name="email" />
-                                <SingleField infor={userData.phones[0].phoneNumber} name="phone" />
-                                <SingleField
-                                    infor={userData.basicInfor.dateOfBirth}
-                                    name="birth day"
+                                    infor={userData.profile.basicInfor.lastName}
+                                    name="Last Name"
                                 />
                                 <SingleField
-                                    infor={userData.organization ?? ''}
-                                    name="organization"
+                                    infor={userData.profile.addresses[0].country}
+                                    name="Country"
                                 />
-                                <SingleField infor={userData.role} name="role" />
-                                <SingleField infor={userData.department ?? ''} name="deparment" />
                                 <SingleField
-                                    infor={userData.addresses[0].postalCode ?? ''}
-                                    name="zip/postal code"
+                                    infor={userData.profile.addresses[0].city}
+                                    name="City"
+                                />
+                                <SingleField
+                                    infor={userData.profile.addresses[0].street}
+                                    name="Address"
+                                />
+                                <SingleField
+                                    infor={userData.profile.emails[0].emailAddress}
+                                    name="Email"
+                                />
+                                <SingleField
+                                    infor={userData.profile.phones[0].phoneNumber}
+                                    name="Phone"
+                                />
+                                <SingleField
+                                    infor={userData.profile.basicInfor.dateOfBirth}
+                                    name="Birth Day"
+                                />
+                                <SingleField
+                                    infor={userData.profile.organization ?? ''}
+                                    name="Organization"
+                                />
+                                <SingleField infor={userData.profile.role} name="Role" />
+                                <SingleField
+                                    infor={userData.profile.department ?? ''}
+                                    name="Department"
+                                />
+                                <SingleField
+                                    infor={userData.profile.addresses[0].postalCode ?? ''}
+                                    name="ZIP/Postal Code"
                                 />
                                 <div className="col-span-6 sm:col-full">
                                     <Link
-                                        to="/pi"
+                                        to={`${userData.id}/pi`}
                                         className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                        type="submit"
                                     >
                                         Edit
                                     </Link>
                                     <Link
-                                        to="/kyc"
+                                        to={`${userData.id}/kyc`}
                                         className="ml-1 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                        type="submit"
                                     >
                                         KYC
                                     </Link>
@@ -129,4 +145,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default ProfilePage;

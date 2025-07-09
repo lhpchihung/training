@@ -1,3 +1,4 @@
+import { SubmissionAction, UserSubmissionAction } from '../../../../types/submission';
 import {
     AddressType,
     AssetType,
@@ -20,10 +21,12 @@ export type User = {
     email: string;
     role: UserRole;
     profile?: Profile;
+    submission?: Submission;
 };
 
 export type Profile = {
-    basicInfor: UserBasicInfor;
+    role: UserRole;
+    basicInfor: BasicInfor;
     organization?: string;
     department?: string;
     phones: UserPhone[];
@@ -39,7 +42,16 @@ export type Profile = {
     investments?: Investment;
 };
 
-export type UserBasicInfor = {
+export type Submission = {
+    id: string;
+    name: string;
+    requestDate: string;
+    confirmDate?: string;
+    status: SubmissionAction;
+    action: UserSubmissionAction;
+};
+
+export type BasicInfor = {
     firstName: string;
     lastName: string;
     middleName?: string;

@@ -1,6 +1,6 @@
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import ErrorMessage from '../../../../components/ui/Error/Error';
-import { UserData } from '../model';
+import { User } from '../model';
 import { EmailType, PreferredType } from '../../../../types/user';
 
 type Props = {
@@ -8,13 +8,13 @@ type Props = {
 };
 
 const EmailPanel = ({ disable = false }: Props) => {
-    const name = 'emails';
+    const name = 'profile.emails';
 
     const {
         register,
         formState: { errors },
         control
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
     const { fields, append, remove } = useFieldArray({
         control,
         name: name
@@ -66,7 +66,7 @@ const EmailPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color  "
                             placeholder="Enter email address"
                         />
-                        <ErrorMessage errors={errors?.emails?.[index]?.emailAddress?.message} />
+                        <ErrorMessage errors={errors?.profile?.emails?.[index]?.emailAddress?.message} />
                     </div>
 
                     <div>
@@ -86,7 +86,7 @@ const EmailPanel = ({ disable = false }: Props) => {
                             <option value="personal">Personal</option>
                             <option value="work">Work</option>
                         </select>
-                        <ErrorMessage errors={errors?.emails?.[index]?.emailType?.message} />
+                        <ErrorMessage errors={errors?.profile?.emails?.[index]?.emailType?.message} />
                     </div>
 
                     <div>
@@ -106,7 +106,7 @@ const EmailPanel = ({ disable = false }: Props) => {
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
-                        <ErrorMessage errors={errors?.emails?.[index]?.preferred?.message} />
+                        <ErrorMessage errors={errors?.profile?.emails?.[index]?.preferred?.message} />
                     </div>
                 </fieldset>
             ))}

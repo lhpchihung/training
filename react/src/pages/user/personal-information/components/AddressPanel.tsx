@@ -1,6 +1,6 @@
 import { useFormContext, useFieldArray } from 'react-hook-form';
 import ErrorMessage from '../../../../components/ui/Error/Error';
-import { UserData } from '../model';
+import { User } from '../model';
 import { AddressType } from '../../../../types/user';
 
 type Props = {
@@ -8,13 +8,13 @@ type Props = {
 };
 
 const AddressPanel = ({ disable = false }: Props) => {
-    const name = 'addresses';
+    const name = 'profile.addresses';
 
     const {
         register,
         formState: { errors },
         control
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -64,7 +64,7 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                             placeholder="Enter country"
                         />
-                        <ErrorMessage errors={errors?.[name]?.[index]?.country?.message} />
+                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.country?.message} />
                     </div>
 
                     <div>
@@ -81,7 +81,7 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                             placeholder="Enter city"
                         />
-                        <ErrorMessage errors={errors?.[name]?.[index]?.city?.message} />
+                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.city?.message} />
                     </div>
 
                     <div>
@@ -100,7 +100,7 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color "
                             placeholder="Enter street"
                         />
-                        <ErrorMessage errors={errors?.[name]?.[index]?.street?.message} />
+                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.street?.message} />
                     </div>
 
                     <div>
@@ -119,7 +119,7 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                             placeholder="Enter postal code"
                         />
-                        <ErrorMessage errors={errors?.[name]?.[index]?.postalCode?.message} />
+                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.postalCode?.message} />
                     </div>
 
                     <div>
@@ -139,7 +139,7 @@ const AddressPanel = ({ disable = false }: Props) => {
                             <option value="mailing">Mailing</option>
                             <option value="work">Work</option>
                         </select>
-                        <ErrorMessage errors={errors?.[name]?.[index]?.addressType?.message} />
+                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.addressType?.message} />
                     </div>
                 </fieldset>
             ))}

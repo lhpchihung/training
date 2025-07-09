@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { UserData } from '../../personal-information/model';
+import { User } from '../../personal-information/model';
 import { LiabilityType } from '../../../../types/user';
 
 type Props = {
@@ -7,14 +7,14 @@ type Props = {
 };
 
 const LiabilitySection = ({ disable = false }: Props) => {
-    const name = 'liabilities';
+    const name = 'profile.liabilities';
 
     const {
         register,
         formState: { errors },
         control,
         watch
-    } = useFormContext<UserData>();
+    } = useFormContext<User>();
 
     const { fields, append, remove } = useFieldArray({
         control,
@@ -69,9 +69,9 @@ const LiabilitySection = ({ disable = false }: Props) => {
                             <option value="real-estate-loan">Real Estate Loan</option>
                             <option value="others">Others</option>
                         </select>
-                        {errors?.[name]?.[index]?.liabilityType && (
+                        {errors?.profile?.liabilities?.[index]?.liabilityType && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors[name][index]?.liabilityType?.message}
+                                {errors.profile.liabilities[index]?.liabilityType?.message}
                             </p>
                         )}
                     </div>
@@ -93,9 +93,9 @@ const LiabilitySection = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                             placeholder="Enter amount"
                         />
-                        {errors?.[name]?.[index]?.amount && (
+                        {errors?.profile?.liabilities?.[index]?.amount && (
                             <p className="text-red-500 text-sm mt-1">
-                                {errors[name][index]?.amount?.message}
+                                {errors.profile.liabilities[index]?.amount?.message}
                             </p>
                         )}
                     </div>
