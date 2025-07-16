@@ -5,6 +5,7 @@ export type UserSubmission = {
     userId: string;
     name: string;
     requestDate: string;
+    confirmDate?: string;
     status: SubmissionStatus;
     action: UserSubmissionAction;
 };

@@ -28,8 +28,7 @@ const UserSubmissionTable = () => {
         fetchData();
     }, [userId]);
 
-    // const hasWaiting = data.some((s) => s.status === SubmissionStatus.Waiting);
-    const hasWaiting = false;
+    const hasWaiting = data.some((s) => s.status === SubmissionStatus.Waiting);
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-md">

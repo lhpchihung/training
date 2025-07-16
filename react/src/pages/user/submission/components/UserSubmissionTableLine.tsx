@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { showErrorToast, showSuccessToast } from '../../../../utils/toastUtils';
-import { AdminSubmissionAction, SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
+import {
+    AdminSubmissionAction,
+    SubmissionStatus,
+    UserSubmissionAction
+} from '../../../../types/submission';
 import { UserSubmission } from '../model';
 import { updateSubmissionStatus } from '../../../../services/submission-api';
 
@@ -10,7 +14,7 @@ type Props = {
 };
 
 const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
-    const { id, name, status, requestDate, action } = submissionData;
+    const { id, name, status, requestDate, confirmDate, action } = submissionData;
     const [loading, setLoading] = useState(false);
 
     const handleActionUpdate = async (newAction: UserSubmissionAction) => {
@@ -46,7 +50,7 @@ const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
                 </span>
             </td>
             <td className="px-6 py-4">{requestDate}</td>
-            <td className="px-6 py-4">'N/A'</td>
+            <td className="px-6 py-4">{confirmDate || 'N/A'}</td>
             <td className="px-6 py-4">
                 <button
                     onClick={() =>
