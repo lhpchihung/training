@@ -4,10 +4,10 @@
       "profile": {
         "basicInfor": {
           "firstName": "Hùng",
-          "lastName": "Lê",
+          "lastName": "Lê HPC",
           "middleName": "",
           "dateOfBirth": "1986-01-10",
-          "age": 39
+          "age": "39"
         },
         "addresses": [
           {
@@ -111,6 +111,15 @@
       "requestDate": "2025-07-16",
       "status": "Approved",
       "action": "Cancel",
+      "userId": "2",
+      "confirmDate": "2025-07-16"
+    },
+    {
+      "id": "989a2704-68aa-428b-a6c4-3e94a33189f8",
+      "name": "hello",
+      "requestDate": "2025-07-16",
+      "status": "Rejected",
+      "action": "Request",
       "userId": "2",
       "confirmDate": "2025-07-16"
     }
