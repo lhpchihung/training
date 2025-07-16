@@ -89,6 +89,10 @@ const SignUp = () => {
                                     value: 6,
                                     message: 'Password must be at least 6 characters'
                                 },
+                                maxLength: {
+                                    value: 10,
+                                    message: 'Password must be shorter than 10 characters'
+                                },
                                 pattern: {
                                     value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{6,}$/,
                                     message:

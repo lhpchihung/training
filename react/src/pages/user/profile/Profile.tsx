@@ -8,9 +8,9 @@ import NoProfile from './components/NoProfile';
 import { fetchUserDataById } from '../../../services/user-api';
 import { buildUserPath } from '../../../utils/pathUtils';
 
-const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Users', href: '/' },
+const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
+    { label: 'Home', href: '/pages/home' },
+    { label: 'Users', href: '/pages/users' },
     { label: 'Personal Information', current: true }
 ];
 

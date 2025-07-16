@@ -19,9 +19,9 @@ import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchUserDataById, updateUserData } from '../../../services/user-api';
 
-const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Users', href: '/' },
+const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
+    { label: 'Home', href: '/pages/home' },
+    { label: 'Users', href: '/pages/users' },
     { label: 'Personal KYC', current: true }
 ];
 

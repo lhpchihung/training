@@ -21,12 +21,12 @@ const Login = () => {
         register,
         handleSubmit,
         formState: { errors },
+        setError,
         setValue
     } = useForm<LoginData>();
 
     const [loading, setLoading] = useState<boolean>(false);
     const isAuthenticated = useContext(AuthenticatedContext);
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,15 +42,31 @@ const Login = () => {
         try {
             const { defaultUsername, defaultPassword } = config;
             const response = await loginUser(defaultUsername, defaultPassword);
-
             sessionStorage.setItem('accessToken', response.accessToken);
 
-            const isAdmin = data.email === mockUsersData.admin.email;
+            const matchedUser =
+                data.email === mockUsersData.admin.email &&
+                data.password === mockUsersData.admin.password
+                    ? mockUsersData.admin
+                    : data.email === mockUsersData.user.email &&
+                      data.password === mockUsersData.user.password
+                    ? mockUsersData.user
+                    : null;
+
+            if (!matchedUser) {
+                setError('password', {
+                    type: 'manual',
+                    message: 'Invalid email or password'
+                });
+                setLoading(false);
+                return;
+            }
+
             const user: User = {
-                id: isAdmin ? mockUsersData.admin.id: mockUsersData.user.id,
-                name: isAdmin ? mockUsersData.admin.name : mockUsersData.user.name,
-                email: isAdmin ? mockUsersData.admin.email : mockUsersData.user.email,
-                role: isAdmin ? UserRole.Admin : UserRole.User,
+                id: matchedUser.id,
+                name: matchedUser.name,
+                email: matchedUser.email,
+                role: matchedUser.role as UserRole,
                 profile: null
             };
 
@@ -63,7 +79,12 @@ const Login = () => {
             }
 
             showSuccessToast('Login successfully!');
-            navigate('/');
+
+            if (user.role === UserRole.Admin) {
+                navigate('/pages/admin');
+            } else {
+                navigate(`/pages/user/${user.id}/profile`);
+            }
         } catch (error) {
             showErrorToast('Login failed!');
         } finally {
@@ -84,7 +105,7 @@ const Login = () => {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     Sign in to platform
                 </h2>
-                <form className="mt-8 space-y-6" action="#">
+                <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label
                             htmlFor="email"
@@ -122,20 +143,7 @@ const Login = () => {
                             placeholder="••••••••"
                             className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             {...register('password', {
-                                required: 'Password is required',
-                                minLength: {
-                                    value: 6,
-                                    message: 'Password must be at least 1 characters'
-                                },
-                                maxLength: {
-                                    value: 10,
-                                    message: 'Password must be shorter than 7 characters'
-                                },
-                                pattern: {
-                                    value: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#&!]).{6,}$/,
-                                    message:
-                                        'Password must contain at least one letter, one digit, and one special character (@, #, &, !).'
-                                }
+                                required: 'Password is required'
                             })}
                         />
                         {errors.password && (

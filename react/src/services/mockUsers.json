@@ -2,14 +2,14 @@
     "admin": {
         "id": "1",
         "email": "admin@example.com",
-        "password": "Hung@123",
+        "password": "admin@123",
         "role": "admin",
         "name": "Admin"
     },
     "user": {
         "id": "2",
         "email": "guest@example.com",
-        "password": "Hung@123",
+        "password": "guest@123",
         "role": "user",
         "name": "Guest User"
     }
