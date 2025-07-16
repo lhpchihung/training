@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react';
-import TableLine from '../components/TableLine';
-import { fetchSubmissions } from '../../../../services/dummy-api';
+import TableLine from './TableLine';
 import { showErrorToast } from '../../../../utils/toastUtils';
-import { SubmissionData } from '../../../../models/submission';
+import { fetchAllSubmissions } from '../../../../services/submission-api';
+import { AdminSubmission } from '../model';
 
-type Props = {};
+const Table = () => {
+    const [data, setData] = useState<AdminSubmission[]>([]);
+    const [loading, setLoading] = useState(true);
 
-const Table = (props: Props) => {
-    const [data, setData] = useState<SubmissionData[]>([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const submissions = await fetchAllSubmissions();
+                setData(submissions);
+            } catch (error) {
+                showErrorToast('Error when fetching submissions!');
+                console.error('Error fetching submissions:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const result = await fetchSubmissions();
-    //             setData(result);
-    //         } catch (error) {
-    //             showErrorToast("Error when fetching submissions!");
-    //             console.error("Error fetching submissions:", error);
-    //         }
-    //     };
+        fetchData();
+    }, []);
 
-    //     fetchData();
-    // }, []);
+    if (loading) return <p>Loading submissions...</p>;
 
     return (
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">
@@ -35,7 +38,10 @@ const Table = (props: Props) => {
                             Status
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Date
+                            Request Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Confirm Date
                         </th>
                         <th scope="col" className="px-6 py-3 text-center">
                             Actions
@@ -44,12 +50,16 @@ const Table = (props: Props) => {
                 </thead>
                 <tbody>
                     {data.length > 0 ? (
-                        data.map((submission, index) => (
-                            <TableLine key={index} submissionData={submission} setData={setData} />
+                        data.map((submission) => (
+                            <TableLine
+                                key={submission.id}
+                                submissionData={submission}
+                                setData={setData}
+                            />
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={4} className="px-6 py-4 text-center">
+                            <td colSpan={5} className="px-6 py-4 text-center">
                                 No submissions found.
                             </td>
                         </tr>

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
 import BasicInformation from './components/BasicInformation';
 import Identification from './components/Identification';
@@ -9,10 +9,9 @@ import AddressPanel from './components/AddressPanel';
 import PhonePanel from './components/PhonePanel';
 import EmailPanel from './components/EmailPanel';
 import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
-// import { fetchUserData, updateUserData } from '../../../services/dummy-api';
 import { showErrorToast, showSuccessToast } from '../../../utils/toastUtils';
 import { User } from './model';
-import { updateUserData } from '../../../services/user';
+import { fetchUserDataById, updateUserData } from '../../../services/user-api';
 
 const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
     { label: 'Home', href: '/' },
@@ -25,32 +24,42 @@ type Props = {
 };
 
 const PersonalInformation = ({ disable = false }: Props) => {
+    const { id } = useParams();
     const methods = useForm<User>();
     const [loading, setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const fetchData = async (): Promise<void> => {
-    //         try {
-    //             const data: UserData = await fetchUserData();
-    //             methods.reset(data);
-    //         } catch (error) {
-    //             showErrorToast(`Fetching data error: ${String(error)}`);
-    //             console.error("Error fetching user data:", error);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async (): Promise<void> => {
+            try {
+                if (!id) throw new Error('User ID not found in URL');
 
-    //     fetchData();
-    // }, [methods]);
+                const data = await fetchUserDataById(id);
+                if (data.profile) {
+                    methods.reset(data);
+                }
+            } catch (error) {
+                showErrorToast(`Fetching data error: ${String(error)}`);
+                console.error('Error fetching user data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [methods]);
 
     const onSubmit = methods.handleSubmit(async (data: User) => {
         setLoading(true);
         try {
+            if (!id) throw new Error('User ID not found in URL');
+
+            data.id = id;
+
             await updateUserData(data);
+
             showSuccessToast('Updated successfully!');
-            navigate('/pages/user/profile');
+            navigate(`/pages/user/${id}/profile`);
         } catch (error) {
             console.error('Error updating user data:', error);
             showErrorToast(`Updating error: ${String(error)}`);

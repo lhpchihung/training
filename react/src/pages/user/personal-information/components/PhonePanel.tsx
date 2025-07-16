@@ -68,7 +68,9 @@ const PhonePanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color  "
                             placeholder="Enter phone number"
                         />
-                        <ErrorMessage errors={errors?.profile?.phones?.[index]?.phoneNumber?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.phones?.[index]?.phoneNumber?.message}
+                        />
                     </div>
 
                     <div>
@@ -88,7 +90,9 @@ const PhonePanel = ({ disable = false }: Props) => {
                             <option value="personal">Personal</option>
                             <option value="work">Work</option>
                         </select>
-                        <ErrorMessage errors={errors?.profile?.phones?.[index]?.phoneType?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.phones?.[index]?.phoneType?.message}
+                        />
                     </div>
 
                     <div>
@@ -108,7 +112,9 @@ const PhonePanel = ({ disable = false }: Props) => {
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
-                        <ErrorMessage errors={errors?.profile?.phones?.[index]?.preferred?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.phones?.[index]?.preferred?.message}
+                        />
                     </div>
                 </fieldset>
             ))}

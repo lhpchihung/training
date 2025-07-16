@@ -1,6 +1,100 @@
 {
-    "users": [
-        { "id": 1, "name": "Alice", "email": "alice@example.com" },
-        { "id": 2, "name": "Bob", "email": "bob@example.com" }
-    ]
+  "users": [
+    {
+      "profile": {
+        "basicInfor": {
+          "firstName": "Hùng",
+          "lastName": "Lê",
+          "middleName": "",
+          "dateOfBirth": "1986-01-10",
+          "age": 39
+        },
+        "addresses": [
+          {
+            "country": "Vietnam",
+            "city": "Quận Gò Vấp",
+            "street": "745/97/5 Quang Trung, Phường 12, Gò Vấp",
+            "postalCode": "1234567",
+            "addressType": "mailing"
+          },
+          {
+            "country": "Vietnam",
+            "city": "Quận Gò Vấp",
+            "street": "745/97/5 Quang Trung, Phường 12, Gò Vấp",
+            "postalCode": "12345",
+            "addressType": "mailing"
+          }
+        ],
+        "emails": [],
+        "phones": [],
+        "identification": [
+          {
+            "idType": "national-id-card",
+            "expiryDate": "2025-07-16",
+            "file": {
+              "0": {}
+            }
+          },
+          {
+            "idType": "national-id-card",
+            "expiryDate": "2025-07-16",
+            "file": {
+              "0": {}
+            }
+          }
+        ],
+        "occupation": [],
+        "netWorths": "2234",
+        "investments": {
+          "experiment": "< 5 years",
+          "riskTolerance": "10%"
+        },
+        "assets": [
+          {
+            "assetType": "liquidity",
+            "amount": "2234"
+          }
+        ]
+      },
+      "id": "2"
+    }
+  ],
+  "submissions": [
+    {
+      "id": "5531",
+      "name": "Jennifer Clark",
+      "userId": "2",
+      "requestDate": "2025-07-16",
+      "status": "Approved",
+      "action": "Requested",
+      "confirmDate": "2025-07-16"
+    },
+    {
+      "id": "05a0",
+      "name": "a",
+      "userId": "2",
+      "requestDate": "2025-07-16",
+      "status": "Reject",
+      "action": "Requested",
+      "confirmDate": "2025-07-16"
+    },
+    {
+      "id": "3f5af1bc-3ec1-4c4f-9c1f-208e52a07f25",
+      "name": "hihi",
+      "requestDate": "2025-07-16",
+      "status": "Approved",
+      "action": "Canceled",
+      "userId": "2",
+      "confirmDate": "2025-07-16"
+    },
+    {
+      "id": "1070a470-7e23-49a5-a82f-03a9ed54a637",
+      "name": "hihihi",
+      "requestDate": "2025-07-16",
+      "status": "Approved",
+      "action": "Canceled",
+      "userId": "2",
+      "confirmDate": "2025-07-16"
+    }
+  ]
 }

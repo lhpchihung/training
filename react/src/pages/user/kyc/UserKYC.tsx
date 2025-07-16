@@ -14,10 +14,10 @@ import EmailPanel from '../personal-information/components/EmailPanel';
 import PhonePanel from '../personal-information/components/PhonePanel';
 import Identification from '../personal-information/components/Identification';
 import Occupation from '../personal-information/components/Occupation';
-// import { fetchUserData, updateUserData } from '../../../services/dummy-api';
 import { showErrorToast, showSuccessToast } from '../../../utils/toastUtils';
 import PrimaryButton from '../../../components/ui/Button/PrimaryButton';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
+import { fetchUserDataById, updateUserData } from '../../../services/user-api';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -32,32 +32,36 @@ type Props = {
 const UserKYC = ({ disable = true }: Props) => {
     const methods = useForm<User>();
     const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
     const [loading, setLoading] = useState<boolean>(false);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const data: UserData = await fetchUserData();
-    //             console.log(data);
-    //             methods.reset(data);
-    //         } catch (error) {
-    //             console.error("Error fetching user data:", error);
-    //         }
-    //     };
+    // Fetch user data by ID
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (!id) throw new Error('Missing user ID in URL');
+                const data = await fetchUserDataById(id);
+                methods.reset(data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                showErrorToast(`Failed to load user data: ${String(error)}`);
+            }
+        };
 
-    //     fetchData();
-    // }, [methods]);
+        fetchData();
+    }, [id, methods]);
 
     const onSubmit = methods.handleSubmit(async (data) => {
         setLoading(true);
         try {
-            // const updatedData = await updateUserData(data);
-            // showSuccessToast('Updated successfully!');
-            // console.log('User data updated successfully:', updatedData);
-            navigate('/pages/user/profile');
+            if (!id) throw new Error('Missing user ID');
+            data.id = id;
+            await updateUserData(data);
+            showSuccessToast('KYC submitted successfully!');
+            navigate(`/pages/user/${id}/profile`);
         } catch (error) {
             console.error('Error updating user data:', error);
-            showErrorToast(`Updating error: ${error}`);
+            showErrorToast(`Updating error: ${String(error)}`);
         } finally {
             setLoading(false);
         }

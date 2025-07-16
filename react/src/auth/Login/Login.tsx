@@ -14,6 +14,7 @@ import { loginUser } from '../../services/dummy-api';
 import mockUsersData from '../../services/mockUsers.json';
 import config from '../../config/config.json';
 import { User } from '../../pages/user/personal-information/model';
+import { isUserExist, saveUserToServer } from '../../services/user-api';
 
 const Login = () => {
     const {
@@ -48,14 +49,18 @@ const Login = () => {
             const user: User = {
                 id: mockUsersData.user.id,
                 name: isAdmin ? mockUsersData.admin.name : mockUsersData.user.name,
-                email: data.email,
-                role: isAdmin ? UserRole.Admin : UserRole.User
+                email: isAdmin ? mockUsersData.admin.email : mockUsersData.user.email,
+                role: isAdmin ? UserRole.Admin : UserRole.User,
+                profile: null
             };
 
             sessionStorage.setItem('user', JSON.stringify(user));
             isAuthenticated.setUser(user);
-
             isAuthenticated.setUserWithRemember(user, data.remember);
+
+            if (!(await isUserExist(user.email))) {
+                await saveUserToServer(user);
+            }
 
             showSuccessToast('Login successfully!');
             navigate('/');

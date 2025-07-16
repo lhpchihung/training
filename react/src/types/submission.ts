@@ -1,16 +1,18 @@
 export enum SubmissionStatus {
     Active = 'Active',
     Inactive = 'Inactive',
-    Pending = 'Pending'
+    Pending = 'Pending',
+    Waiting = 'Waiting',
+    Approved = 'Approved',
+    Rejected = 'Rejected'
 }
 
-export enum SubmissionAction {
+export enum AdminSubmissionAction {
     Approve = 'Approve',
-    Reject = 'Reject',
-    Waiting = 'Waiting'
+    Reject = 'Reject'
 }
 
 export enum UserSubmissionAction {
-    Cancel = 'Canceled',
-    Request = 'Requested'
+    Cancel = 'Cancel',
+    Request = 'Request'
 }

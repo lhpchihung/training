@@ -64,7 +64,9 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                             placeholder="Enter country"
                         />
-                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.country?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.addresses?.[index]?.country?.message}
+                        />
                     </div>
 
                     <div>
@@ -100,7 +102,9 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color "
                             placeholder="Enter street"
                         />
-                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.street?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.addresses?.[index]?.street?.message}
+                        />
                     </div>
 
                     <div>
@@ -119,7 +123,9 @@ const AddressPanel = ({ disable = false }: Props) => {
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                             placeholder="Enter postal code"
                         />
-                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.postalCode?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.addresses?.[index]?.postalCode?.message}
+                        />
                     </div>
 
                     <div>
@@ -139,7 +145,9 @@ const AddressPanel = ({ disable = false }: Props) => {
                             <option value="mailing">Mailing</option>
                             <option value="work">Work</option>
                         </select>
-                        <ErrorMessage errors={errors?.profile?.addresses?.[index]?.addressType?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.addresses?.[index]?.addressType?.message}
+                        />
                     </div>
                 </fieldset>
             ))}

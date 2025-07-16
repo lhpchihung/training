@@ -61,7 +61,9 @@ const InvestmentSection = ({ disable = false }: Props) => {
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color dark:text-gray-900"
                     >
                         <option value={RiskPercent.TenPercent}>{RiskPercent.TenPercent}</option>
-                        <option value={RiskPercent.ThirtyPercent}>{RiskPercent.ThirtyPercent}</option>
+                        <option value={RiskPercent.ThirtyPercent}>
+                            {RiskPercent.ThirtyPercent}
+                        </option>
                         <option value={RiskPercent.AllIn}>{RiskPercent.AllIn}</option>
                     </select>
                     {errors?.profile?.investments?.riskTolerance && (

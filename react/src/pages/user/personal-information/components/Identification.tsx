@@ -79,7 +79,9 @@ const Identification = ({ disable = false }: Props) => {
                             <option value="national-id-card">National ID Card</option>
                             <option value="driver-license">Driver License</option>
                         </select>
-                        <ErrorMessage errors={errors?.profile?.identification?.[index]?.idType?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.identification?.[index]?.idType?.message}
+                        />
                     </div>
                     <div>
                         <label
@@ -115,7 +117,9 @@ const Identification = ({ disable = false }: Props) => {
                                 required: 'Document upload is required'
                             })}
                         />
-                        <ErrorMessage errors={errors?.profile?.identification?.[index]?.file?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.identification?.[index]?.file?.message}
+                        />
                     </div>
                 </fieldset>
             ))}

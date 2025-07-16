@@ -3,10 +3,11 @@ import { createContext, ReactElement, useEffect, useState } from 'react';
 export enum UserRole {
     Admin = 'admin',
     User = 'user',
-    Guest = 'guest',
+    Guest = 'guest'
 }
 
 export interface User {
+    id: string;
     name: string;
     email: string;
     role: UserRole;
@@ -21,7 +22,7 @@ const AuthenticatedContext = createContext<{
     user: null,
     loading: true,
     setUser: () => {},
-    setUserWithRemember: () => {},
+    setUserWithRemember: () => {}
 });
 
 const getStoredUser = (): User | null => {
@@ -65,7 +66,7 @@ const AuthenticatedProvider = ({ children }: { children: ReactElement }) => {
                 user,
                 loading,
                 setUser,
-                setUserWithRemember,
+                setUserWithRemember
             }}
         >
             {children}

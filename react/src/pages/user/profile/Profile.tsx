@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import Breadcrumb from '../../../components/ui/Breadcrumb/Breadcrumb';
-import { User, Profile } from '../personal-information/model';
+import { User } from '../personal-information/model';
 import SingleField from './components/SingleField';
-import { fetchUserData, updateUserData } from '../../../services/user';
-import { Link } from 'react-router-dom';
+
+import { Link, useParams } from 'react-router-dom';
 import NoProfile from './components/NoProfile';
+import { fetchUserData, fetchUserDataById } from '../../../services/user-api';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -13,12 +14,14 @@ const breadcrumbItems = [
 ];
 
 const ProfilePage = () => {
+    const { id } = useParams<{ id: string }>();
     const [userData, setUserData] = useState<User | null>(null);
 
     useEffect(() => {
         const loadUserData = async () => {
             try {
-                const data = await fetchUserData();
+                if (!id) return;
+                const data = await fetchUserDataById(id);
                 setUserData(data);
             } catch (error) {
                 console.error('Error loading user data:', error);
@@ -27,7 +30,7 @@ const ProfilePage = () => {
         };
 
         loadUserData();
-    }, []);
+    }, [id]);
 
     if (!userData?.profile) {
         return <NoProfile />;
@@ -86,23 +89,23 @@ const ProfilePage = () => {
                                     name="Last Name"
                                 />
                                 <SingleField
-                                    infor={userData.profile.addresses[0].country}
+                                    infor={userData.profile.addresses[0]?.country}
                                     name="Country"
                                 />
                                 <SingleField
-                                    infor={userData.profile.addresses[0].city}
+                                    infor={userData.profile.addresses[0]?.city}
                                     name="City"
                                 />
                                 <SingleField
-                                    infor={userData.profile.addresses[0].street}
+                                    infor={userData.profile.addresses[0]?.street}
                                     name="Address"
                                 />
                                 <SingleField
-                                    infor={userData.profile.emails[0].emailAddress}
+                                    infor={userData.profile.emails[0]?.emailAddress}
                                     name="Email"
                                 />
                                 <SingleField
-                                    infor={userData.profile.phones[0].phoneNumber}
+                                    infor={userData.profile.phones[0]?.phoneNumber}
                                     name="Phone"
                                 />
                                 <SingleField
@@ -119,18 +122,18 @@ const ProfilePage = () => {
                                     name="Department"
                                 />
                                 <SingleField
-                                    infor={userData.profile.addresses[0].postalCode ?? ''}
+                                    infor={userData.profile.addresses[0]?.postalCode ?? ''}
                                     name="ZIP/Postal Code"
                                 />
                                 <div className="col-span-6 sm:col-full">
                                     <Link
-                                        to={`${userData.id}/pi`}
+                                        to={`/pages/user/${userData.id}/pi`}
                                         className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     >
                                         Edit
                                     </Link>
                                     <Link
-                                        to={`${userData.id}/kyc`}
+                                        to={`/pages/user/${userData.id}/kyc`}
                                         className="ml-1 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                     >
                                         KYC

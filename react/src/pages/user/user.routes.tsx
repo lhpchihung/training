@@ -2,6 +2,7 @@ import { Navigate, RouteObject } from 'react-router';
 import { lazy, Suspense } from 'react';
 import LoadingData from '../../components/ui/Loading/Loading';
 import UserSubmission from './submission/Submission';
+import CreateSubmissionForm from './submission/components/CreateSubmissionForm';
 
 const PersonalInformation = lazy(() => import('./personal-information/PersonalInformation'));
 const UserKYC = lazy(() => import('./kyc/UserKYC'));
@@ -18,10 +19,6 @@ const userRoutes: RouteObject[] = [
         ),
         children: [
             {
-                path: '',
-                element: <Navigate to="profile" replace />
-            },
-            {
                 path: ':id/pi',
                 element: <PersonalInformation disable={false} />
             },
@@ -30,12 +27,16 @@ const userRoutes: RouteObject[] = [
                 element: <UserKYC disable={false} />
             },
             {
-                path: 'profile',
+                path: ':id/profile',
                 element: <UserProfile />
             },
             {
-                path: 'submissions',
+                path: ':id/submissions',
                 element: <UserSubmission />
+            },
+            {
+                path: ':id/submissions/create',
+                element: <CreateSubmissionForm />
             }
         ]
     }

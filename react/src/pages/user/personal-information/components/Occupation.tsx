@@ -91,7 +91,9 @@ const Occupation = ({ disable = false }: Props) => {
                             })}
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         />
-                        <ErrorMessage errors={errors?.profile?.occupation?.[index]?.fromDate?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.occupation?.[index]?.fromDate?.message}
+                        />
                     </div>
 
                     <div>
@@ -117,7 +119,9 @@ const Occupation = ({ disable = false }: Props) => {
                             })}
                             className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         />
-                        <ErrorMessage errors={errors?.profile?.occupation?.[index]?.toDate?.message} />
+                        <ErrorMessage
+                            errors={errors?.profile?.occupation?.[index]?.toDate?.message}
+                        />
                     </div>
                 </fieldset>
             ))}

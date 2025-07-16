@@ -47,7 +47,9 @@ const BasicInformation = ({ disable = false }: Props) => {
                         id="last-name"
                         className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary-color"
                         placeholder="Enter your last name"
-                        {...register('profile.basicInfor.lastName', { required: 'Last name is required' })}
+                        {...register('profile.basicInfor.lastName', {
+                            required: 'Last name is required'
+                        })}
                     />
                     <ErrorMessage errors={errors.profile?.basicInfor?.lastName?.message} />
                 </div>

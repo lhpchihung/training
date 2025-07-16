@@ -1,7 +1,7 @@
 {
     "admin": {
         "id": "1",
-        "email": "hung@example.com",
+        "email": "admin@example.com",
         "password": "Hung@123",
         "role": "admin",
         "name": "Admin"
