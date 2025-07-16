@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./LoadingData.module.css";
 
 const LoadingData = () => {
     return (

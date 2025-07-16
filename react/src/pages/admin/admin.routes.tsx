@@ -2,9 +2,10 @@ import { Navigate, RouteObject } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import LoadingData from '../../components/ui/Loading/Loading';
 
+const Admin = lazy(() => import('./Admin'));
 const Submission = lazy(() => import('./submission/AdminSubmission'));
 const UserKYC = lazy(() => import('../user/kyc/UserKYC'));
-const Admin = lazy(() => import('./Admin'));
+const UserProfile = lazy(() => import('../user/profile/Profile'));
 const PersonalInformation = lazy(() => import('../user/personal-information/PersonalInformation'));
 
 const adminRoutes: RouteObject[] = [
@@ -21,12 +22,16 @@ const adminRoutes: RouteObject[] = [
                 element: <Navigate to="submissions" replace />
             },
             {
-                path: 'pi',
+                path: ':id/pi',
                 element: <PersonalInformation disable />
             },
             {
-                path: 'kyc',
+                path: ':id/kyc',
                 element: <UserKYC disable />
+            },
+            {
+                path: ':id/profile',
+                element: <UserProfile />
             },
             {
                 path: 'submissions',

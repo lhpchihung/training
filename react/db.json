@@ -56,7 +56,17 @@
           }
         ]
       },
-      "id": "2"
+      "id": "2",
+      "name": "Guest",
+      "email": "guest@example.com",
+      "role": "user"
+    },
+    {
+      "id": "1",
+      "name": "Admin",
+      "email": "admin@example.com",
+      "role": "admin",
+      "profile": null
     }
   ],
   "submissions": [
@@ -66,35 +76,39 @@
       "userId": "2",
       "requestDate": "2025-07-16",
       "status": "Approved",
-      "action": "Requested",
-      "confirmDate": "2025-07-16"
+      "action": "Request",
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "05a0",
       "name": "a",
       "userId": "2",
       "requestDate": "2025-07-16",
-      "status": "Reject",
-      "action": "Requested",
-      "confirmDate": "2025-07-16"
+      "status": "Rejected",
+      "action": "Request",
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "3f5af1bc-3ec1-4c4f-9c1f-208e52a07f25",
       "name": "hihi",
       "requestDate": "2025-07-16",
-      "status": "Approved",
-      "action": "Canceled",
+      "status": "Rejected",
+      "action": "Cancel",
       "userId": "2",
-      "confirmDate": "2025-07-16"
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "1070a470-7e23-49a5-a82f-03a9ed54a637",
       "name": "hihihi",
       "requestDate": "2025-07-16",
-      "status": "Approved",
-      "action": "Canceled",
+      "status": "Rejected",
+      "action": "Cancel",
       "userId": "2",
-      "confirmDate": "2025-07-16"
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "5c98b365-5f21-42d7-9045-fe4392052764",
@@ -103,22 +117,35 @@
       "status": "Rejected",
       "action": "Cancel",
       "userId": "2",
-      "confirmDate": "2025-07-16"
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "97ceef3e-2759-43c1-84e8-e69a0a528f9a",
       "name": "lạ",
       "requestDate": "2025-07-16",
-      "status": "Approved",
+      "status": "Rejected",
       "action": "Cancel",
       "userId": "2",
-      "confirmDate": "2025-07-16"
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
     },
     {
       "id": "989a2704-68aa-428b-a6c4-3e94a33189f8",
       "name": "hello",
       "requestDate": "2025-07-16",
       "status": "Rejected",
+      "action": "Request",
+      "userId": "2",
+      "confirmDate": "2025-07-16",
+      "active": "Inactive"
+    },
+    {
+      "id": "77482beb-4a1e-44e3-becb-d2c83f84f9f8",
+      "name": "new",
+      "requestDate": "2025-07-16",
+      "active": "Active",
+      "status": "Approved",
       "action": "Request",
       "userId": "2",
       "confirmDate": "2025-07-16"

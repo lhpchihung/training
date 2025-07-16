@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { showErrorToast, showSuccessToast } from '../../../../utils/toastUtils';
-import {
-    AdminSubmissionAction,
-    SubmissionStatus,
-    UserSubmissionAction
-} from '../../../../types/submission';
+import { ActiveStatus, SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
 import { UserSubmission } from '../model';
 import { updateSubmissionStatus } from '../../../../services/submission-api';
 
@@ -14,7 +10,7 @@ type Props = {
 };
 
 const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
-    const { id, name, status, requestDate, confirmDate, action } = submissionData;
+    const { id, name, status, requestDate, confirmDate, action, active } = submissionData;
     const [loading, setLoading] = useState(false);
 
     const handleActionUpdate = async (newAction: UserSubmissionAction) => {
@@ -39,9 +35,9 @@ const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
             <td className="px-6 py-4">
                 <span
                     className={`px-2 py-1 text-xs font-medium leading-tight rounded-full ${
-                        status === SubmissionStatus.Active
+                        active === ActiveStatus.Active
                             ? 'text-green-700 bg-green-100'
-                            : status === SubmissionStatus.Inactive
+                            : active === ActiveStatus.Inactive
                             ? 'text-red-700 bg-red-100'
                             : 'text-yellow-700 bg-yellow-100'
                     }`}
@@ -70,8 +66,8 @@ const UserSubmissionTableLine = ({ submissionData, setData }: Props) => {
                     {loading
                         ? 'Updating...'
                         : action === UserSubmissionAction.Request
-                        ? 'Cancel'
-                        : 'Request'}
+                        ? UserSubmissionAction.Cancel
+                        : UserSubmissionAction.Request}
                 </button>
             </td>
         </tr>

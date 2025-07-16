@@ -2,13 +2,12 @@ import Header from '../components/layout/Header/Header';
 import Sidebar from '../components/layout/Sidebar/Sidebar';
 import { Navigate, Outlet, useLocation } from 'react-router';
 import Footer from '../components/layout/Footer/Footer';
-import React, { ReactNode, useContext } from 'react';
+import { ReactNode, useContext } from 'react';
 import { UserRole, AuthenticatedContext } from '../shared/Authenticated';
 
-const redirectToRolePage = (userRole: UserRole, userId: string | undefined) => {
-    if (!userId) return null;
+const redirectToRolePage = (userRole: UserRole) => {
     if (userRole === UserRole.Admin) return '/pages/admin';
-    if (userRole === UserRole.User) return `/pages/user/${userId}/profile`;
+    if (userRole === UserRole.User) return '/pages/user';
     return null;
 };
 
@@ -43,7 +42,7 @@ const Pages = () => {
     }
 
     if (location.pathname === '/pages') {
-        const redirectPath = redirectToRolePage(isAuthenticated.user.role, isAuthenticated.user.id);
+        const redirectPath = redirectToRolePage(isAuthenticated.user.role);
         if (redirectPath) {
             return <Navigate to={redirectPath} replace />;
         }

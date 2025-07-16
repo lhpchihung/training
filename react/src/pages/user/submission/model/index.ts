@@ -1,4 +1,4 @@
-import { SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
+import { ActiveStatus, SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
 
 export type UserSubmission = {
     id: string;
@@ -6,6 +6,7 @@ export type UserSubmission = {
     name: string;
     requestDate: string;
     confirmDate?: string;
+    active: ActiveStatus;
     status: SubmissionStatus;
     action: UserSubmissionAction;
 };

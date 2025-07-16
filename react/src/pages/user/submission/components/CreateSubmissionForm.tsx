@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { showErrorToast, showSuccessToast } from '../../../../utils/toastUtils';
 import { useState } from 'react';
-import { SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
+import { ActiveStatus, SubmissionStatus, UserSubmissionAction } from '../../../../types/submission';
 import { createSubmission } from '../../../../services/submission-api';
 import { UserSubmission } from '../model';
 
@@ -26,6 +26,7 @@ const CreateSubmissionForm = () => {
             id: crypto.randomUUID(),
             name: formData.name,
             requestDate: new Date().toISOString().split('T')[0],
+            active: ActiveStatus.Inactive,
             status: SubmissionStatus.Waiting,
             action: UserSubmissionAction.Request,
             userId

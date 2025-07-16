@@ -1,6 +1,6 @@
 import { AdminSubmission } from '../pages/admin/submission/model';
 import { UserSubmission } from '../pages/user/submission/model';
-import { SubmissionStatus, UserSubmissionAction } from '../types/submission';
+import { ActiveStatus, SubmissionStatus, UserSubmissionAction } from '../types/submission';
 
 const API_URL = 'http://localhost:3001/submissions';
 
@@ -93,12 +93,38 @@ export const fetchAllSubmissions = async (): Promise<AdminSubmission[]> => {
 
     const data = await response.json();
 
-    return data.map((item: any) => ({
+    return data.map((item: AdminSubmission) => ({
         id: item.id,
         userId: item.userId,
         name: item.name,
+        requestDate: item.requestDate,
         confirmDate: item.confirmDate,
         status: item.status,
-        action: item.action
+        action: item.action,
+        active: item.active
     }));
+};
+
+export const setSubmissionActive = async (
+    userId: string,
+    submissionId: string
+): Promise<AdminSubmission> => {
+    await fetch(`${API_URL}?userId=${userId}`)
+        .then((res) => res.json())
+        .then(async (subs: AdminSubmission[]) => {
+            await Promise.all(
+                subs.map((s) =>
+                    fetch(`${API_URL}/${s.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            active: s.id === submissionId ? 'Active' : 'Inactive'
+                        })
+                    })
+                )
+            );
+        });
+
+    const res = await fetch(`${API_URL}/${submissionId}`);
+    return await res.json();
 };

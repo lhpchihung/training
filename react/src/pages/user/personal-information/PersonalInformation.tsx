@@ -15,7 +15,7 @@ import { fetchUserDataById, updateUserData } from '../../../services/user-api';
 
 const breadcrumbItems: { label: string; href?: string; current?: boolean }[] = [
     { label: 'Home', href: '/' },
-    { label: 'Users', href: '/users' },
+    { label: 'Users', href: '/' },
     { label: 'Personal Information', current: true }
 ];
 

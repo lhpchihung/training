@@ -8,7 +8,11 @@ const appRouter = createBrowserRouter([
         element: <Navigate to="/pages" replace />
     },
     ...pagesRoutes,
-    ...authRoutes
+    ...authRoutes,
+    {
+        path: '*',
+        element: <Navigate to="/pages/error/not-found" replace />
+    }
 ]);
 
 export default appRouter;

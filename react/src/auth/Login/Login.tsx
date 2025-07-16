@@ -47,7 +47,7 @@ const Login = () => {
 
             const isAdmin = data.email === mockUsersData.admin.email;
             const user: User = {
-                id: mockUsersData.user.id,
+                id: isAdmin ? mockUsersData.admin.id: mockUsersData.user.id,
                 name: isAdmin ? mockUsersData.admin.name : mockUsersData.user.name,
                 email: isAdmin ? mockUsersData.admin.email : mockUsersData.user.email,
                 role: isAdmin ? UserRole.Admin : UserRole.User,

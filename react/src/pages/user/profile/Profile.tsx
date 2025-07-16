@@ -5,18 +5,22 @@ import SingleField from './components/SingleField';
 
 import { Link, useParams } from 'react-router-dom';
 import NoProfile from './components/NoProfile';
-import { fetchUserData, fetchUserDataById } from '../../../services/user-api';
+import { fetchUserDataById } from '../../../services/user-api';
+import { buildUserPath } from '../../../utils/pathUtils';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Users', href: '/users' },
+    { label: 'Users', href: '/' },
     { label: 'Personal Information', current: true }
 ];
 
 const ProfilePage = () => {
     const { id } = useParams<{ id: string }>();
     const [userData, setUserData] = useState<User | null>(null);
+    const [piPath, setPiPath] = useState('');
+    const [kycPath, setKycPath] = useState('');
 
+    // Load user data
     useEffect(() => {
         const loadUserData = async () => {
             try {
@@ -31,6 +35,21 @@ const ProfilePage = () => {
 
         loadUserData();
     }, [id]);
+
+    // Generate paths after userData is ready
+    useEffect(() => {
+        const generatePaths = async () => {
+            if (!userData) return;
+            const pi = buildUserPath(userData.id, 'pi');
+            const kyc = buildUserPath(userData.id, 'kyc');
+            console.log('✅ buildUserPath PI:', pi);
+            console.log('✅ buildUserPath KYC:', kyc);
+            setPiPath(pi);
+            setKycPath(kyc);
+        };
+
+        generatePaths();
+    }, [userData]);
 
     if (!userData?.profile) {
         return <NoProfile />;
@@ -125,20 +144,22 @@ const ProfilePage = () => {
                                     infor={userData.profile.addresses[0]?.postalCode ?? ''}
                                     name="ZIP/Postal Code"
                                 />
-                                <div className="col-span-6 sm:col-full">
-                                    <Link
-                                        to={`/pages/user/${userData.id}/pi`}
-                                        className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    >
-                                        Edit
-                                    </Link>
-                                    <Link
-                                        to={`/pages/user/${userData.id}/kyc`}
-                                        className="ml-1 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    >
-                                        KYC
-                                    </Link>
-                                </div>
+                                {piPath && kycPath && (
+                                    <div className="col-span-6 sm:col-full">
+                                        <Link
+                                            to={piPath}
+                                            className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <Link
+                                            to={kycPath}
+                                            className="ml-1 text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                        >
+                                            KYC
+                                        </Link>
+                                    </div>
+                                )}
                             </div>
                         </fieldset>
                     </form>

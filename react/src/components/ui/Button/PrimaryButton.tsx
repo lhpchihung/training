@@ -1,5 +1,3 @@
-import React from 'react'
-
 type Props = {
     term?: boolean;
     loading?: boolean;
@@ -11,19 +9,19 @@ type Props = {
     disabledBgColor?: string;
     hoverBgColor?: string;
     borderRadius?: string;
-}
+};
 
 const PrimaryButton = ({
     term = true,
     loading = false,
     title,
     onClick,
-    padding = "px-5 py-3",
-    textColor = "text-white",
-    bgColor = "bg-primary-700",
-    disabledBgColor = "bg-gray-500",
-    hoverBgColor = "hover:bg-primary-800",
-    borderRadius = "rounded-lg",
+    padding = 'px-5 py-3',
+    textColor = 'text-white',
+    bgColor = 'bg-primary-700',
+    disabledBgColor = 'bg-gray-500',
+    hoverBgColor = 'hover:bg-primary-800',
+    borderRadius = 'rounded-lg'
 }: Props) => {
     return (
         <button
@@ -31,9 +29,10 @@ const PrimaryButton = ({
             disabled={!term || loading}
             onClick={onClick}
             className={`w-full ${padding} text-base font-medium text-center ${textColor} ${borderRadius} focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 
-                ${!term || loading
-                    ? `${disabledBgColor} cursor-not-allowed`
-                    : `${bgColor} ${hoverBgColor}`
+                ${
+                    !term || loading
+                        ? `${disabledBgColor} cursor-not-allowed`
+                        : `${bgColor} ${hoverBgColor}`
                 }`}
         >
             {loading ? (
@@ -64,7 +63,7 @@ const PrimaryButton = ({
                 title
             )}
         </button>
-    )
-}
+    );
+};
 
-export default PrimaryButton
+export default PrimaryButton;

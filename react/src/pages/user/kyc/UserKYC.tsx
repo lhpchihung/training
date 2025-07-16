@@ -21,7 +21,7 @@ import { fetchUserDataById, updateUserData } from '../../../services/user-api';
 
 const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Users', href: '/users' },
+    { label: 'Users', href: '/' },
     { label: 'Personal KYC', current: true }
 ];
 

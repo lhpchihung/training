@@ -1,4 +1,8 @@
-import { AdminSubmissionAction, SubmissionStatus } from '../../../../types/submission';
+import {
+    ActiveStatus,
+    AdminSubmissionAction,
+    SubmissionStatus
+} from '../../../../types/submission';
 
 export type AdminSubmission = {
     id: string;
@@ -6,6 +10,7 @@ export type AdminSubmission = {
     name: string;
     requestDate: string;
     confirmDate?: string;
+    active: ActiveStatus;
     status: SubmissionStatus;
     action: AdminSubmissionAction;
 };

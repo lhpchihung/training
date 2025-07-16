@@ -4,10 +4,12 @@ const API_URL = 'http://localhost:3001/users';
 
 // Check if user exists by email
 export const isUserExist = async (email: string): Promise<boolean> => {
-    const response = await fetch(`${API_URL}?email=${encodeURIComponent(email)}`);
-    if (!response.ok) throw new Error('Failed to check user existence');
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error('Failed to fetch users');
+
     const data = await response.json();
-    return data.length > 0;
+
+    return data.some((user: any) => user.email === email);
 };
 
 // Save user to json-server

@@ -1,10 +1,13 @@
 export enum SubmissionStatus {
-    Active = 'Active',
-    Inactive = 'Inactive',
     Pending = 'Pending',
     Waiting = 'Waiting',
     Approved = 'Approved',
     Rejected = 'Rejected'
+}
+
+export enum ActiveStatus {
+    Active = 'Active',
+    Inactive = 'Inactive'
 }
 
 export enum AdminSubmissionAction {

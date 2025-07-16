@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { AuthenticatedContext } from '../../../shared/Authenticated';
 
 interface MenuItem {
